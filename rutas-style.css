@@ -1,0 +1,217 @@
+/* Estilos específicos para la página de Ver Rutas */
+
+.rutas-main {
+    padding: 30px;
+    max-width: 1200px;
+    margin: 20px auto;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px var(--shadow-color);
+}
+
+/* Contenedor Flexbox para Mapa y Cámara */
+.map-and-camera-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos se apilen en pantallas pequeñas */
+    gap: 30px; /* Espacio entre el mapa y la cámara */
+    justify-content: center;
+    margin-top: 40px; /* Espacio superior para separar de los botones de acción */
+}
+
+.map-section,
+.camera-section {
+    flex: 1; /* Permite que cada sección ocupe el mismo espacio */
+    min-width: 300px; /* Ancho mínimo antes de que se apilen */
+    box-shadow: 0 2px 8px var(--shadow-color);
+    border-radius: 8px;
+    background-color: var(--light-gray);
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.map-section h2,
+.camera-section h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+/* Estilos del Mapa */
+#mapid {
+    height: 450px; /* Altura del mapa ajustada para que quepa la cámara al lado */
+    width: 100%;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.map-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.map-controls select,
+.control-button {
+    padding: 10px 18px; /* Ligeramente más pequeño */
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.95em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.map-controls select {
+    background-color: white;
+    color: var(--text-color);
+    min-width: 180px;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%230056b3%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13.6-6.4H18.4c-4.5%200-8.8%202.1-11.6%205.8-2.9%203.7-3.9%208.5-2.7%2013.1l132.8%20163.7c2.8%203.4%207.1%205.6%2011.6%205.6s8.8-2.2%2011.6-5.6L290.4%2082.5c1.2-4.6.2-9.4-2.7-13.1z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10px;
+}
+
+.map-controls select:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Estilos de la Sección de Cámara */
+#driver-camera-feed {
+    background-color: #000;
+    width: 100%;
+    padding-bottom: 56.25%;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ccc;
+    font-size: 1.2em;
+    flex-direction: column;
+}
+
+#driver-camera-feed p {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9em;
+}
+
+.placeholder-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 2em;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.placeholder-video i {
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+
+.camera-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+/* Reutilizamos el estilo de .control-button para los botones de cámara y de mapa */
+.control-button {
+    background-color: var(--secondary-color);
+    color: white;
+    border-color: var(--secondary-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.control-button:hover {
+    background-color: #0069d9;
+    border-color: #0069d9;
+    transform: translateY(-2px);
+}
+
+.control-button i {
+    font-size: 1.1em;
+}
+
+/* Responsividad específica para el mapa y la cámara */
+@media (max-width: 992px) {
+    /* Main de Rutas - Apilar mapa y cámara */
+    .map-and-camera-container {
+        flex-direction: column; /* Apila las secciones */
+    }
+
+    .map-section,
+    .camera-section {
+        min-width: unset; /* Reinicia el min-width */
+        width: 100%; /* Ocupa todo el ancho */
+    }
+
+    #mapid {
+        height: 400px; /* Ajusta la altura del mapa para pantallas más pequeñas */
+    }
+
+    .map-controls,
+    .camera-controls {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .map-controls select,
+    .control-button {
+        width: 80%; /* Ocupa más ancho en pantallas pequeñas */
+        max-width: 300px; /* Limita el ancho máximo */
+    }
+}
+
+@media (max-width: 768px) {
+    .map-section h2,
+    .camera-section h2 {
+        font-size: 1.6em;
+    }
+
+    #mapid {
+        height: 350px;
+    }
+}
+
+@media (max-width: 576px) {
+    #mapid {
+        height: 280px;
+    }
+
+    .map-controls select,
+    .control-button {
+        width: 95%;
+        padding: 8px 10px;
+        font-size: 0.9em;
+    }
+
+    .placeholder-video i {
+        font-size: 2.5em;
+    }
+
+    .placeholder-video span {
+        font-size: 0.9em;
+    }
+}
