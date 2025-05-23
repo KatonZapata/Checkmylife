@@ -1,4 +1,530 @@
-*{
+/* Variables CSS para colores */
+:root {
+    --primary-color: #565a5f; /* Azul oscuro para elementos principales */
+    --secondary-color: #ceb00a; /* Azul vibrante para acentos */
+    --accent-color: hsl(134, 61%, 41%); /* Verde para acciones positivas */
+    --text-color: #333;
+    --light-gray: #f8f9fa;
+    --dark-gray: #6c757d;
+    --border-color: #dee2e6;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
 
-    background-color:  green;
+/* Estilos Generales */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--light-gray);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* Encabezado */
+header {
+    background-color: var(--primary-color);
+    color: rgb(197, 168, 6);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 100px;
+    margin-right: 15px;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+.app-name {
+    font-size: 1.8em;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.user-info, .status-info {
+    display: flex;
+    align-items: center;
+    font-size: 1.1em;
+}
+
+.user-info i, .status-info i {
+    margin-right: 8px;
+    font-size: 1.3em;
+}
+
+.status-active {
+    color: #4CAF50; /* Un verde más brillante para "Activo" */
+    font-weight: bold;
+}
+
+.call-button {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.call-button:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+.call-button i {
+    font-size: 1.5em;
+}
+
+/* Barra de Navegación */
+nav {
+    background-color: var(--secondary-color);
+    box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 18px 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: 500;
+}
+
+nav ul li a:hover {
+    background-color: #464a4e;
+    transform: translateY(-2px);
+}
+
+nav ul li a i {
+    font-size: 1.2em;
+}
+
+/* Contenido Principal */
+main {
+    padding: 30px;
+    max-width: 1200px;
+    margin: 20px auto;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px var(--shadow-color);
+}
+
+/* Botones de Acción (4 en línea) */
+.action-buttons {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    margin-bottom: 40px;
+    flex-wrap: wrap; /* Permite que los botones se envuelvan en pantallas pequeñas */
+}
+
+.main-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 18px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    flex: 1; /* Permite que los botones ocupen espacio equitativamente */
+    min-width: 200px; /* Ancho mínimo para evitar que se pongan demasiado pequeños */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.main-button:hover {
+    background-color: #004085;
+    transform: translateY(-3px);
+}
+
+.main-button i {
+    font-size: 1.5em;
+}
+
+/* Formulario de Asignación de Rutas */
+.route-assignment {
+    margin-top: 40px;
+    padding: 25px;
+    background-color: var(--light-gray);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.route-assignment h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    font-size: 2em;
+}
+
+.route-assignment form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Tabla de Asignación de Rutas */
+#routeTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+#routeTable th, #routeTable td {
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    text-align: left;
+}
+
+#routeTable th {
+    background-color: var(--secondary-color);
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#routeTable tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#routeTable input[type="text"] {
+    width: calc(100% - 20px); /* Ajusta el ancho para el padding */
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-sizing: border-box; /* Incluye padding y borde en el ancho total */
+    transition: border-color 0.3s ease;
+}
+
+#routeTable input[type="text"]:focus {
+    border-color: var(--secondary-color);
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+}
+
+.remove-row-button {
+    background-color: #dc3545; /* Rojo para eliminar */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+
+.remove-row-button:hover {
+    background-color: #c82333;
+}
+
+/* Botones Añadir y Asignar */
+.add-row-button {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    align-self: flex-start; /* Alinea el botón a la izquierda */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.add-row-button:hover {
+    background-color: #0069d9;
+}
+
+.assign-button {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: bold;
+    align-self: center; /* Centra el botón */
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.assign-button:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+/* Responsividad básica */
+@media (max-width: 992px) {
+    .header-right {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-end;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    nav ul li a {
+        justify-content: center;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .main-button {
+        width: 100%;
+        min-width: unset;
+    }
+
+    #routeTable th, #routeTable td {
+        padding: 8px;
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .header-right {
+        width: 100%;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    .app-name {
+        font-size: 1.5em;
+    }
+
+    main {
+        padding: 15px;
+        margin: 15px auto;
+    }
+
+    .route-assignment h2 {
+        font-size: 1.7em;
+    }
+}
+
+@media (max-width: 576px) {
+    .header-right {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .user-info, .status-info, .call-button {
+        justify-content: center;
+    }
+
+    .logo {
+        height: 40px;
+    }
+
+    nav ul li a {
+        padding: 12px 15px;
+        font-size: 0.9em;
+    }
+
+    .main-button {
+        font-size: 1em;
+        padding: 15px 20px;
+    }
+
+    #routeTable th, #routeTable td {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        text-align: right;
+    }
+
+    #routeTable th:before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    #routeTable td:before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: capitalize;
+        margin-right: 10px;
+    }
+
+    #routeTable thead {
+        display: none;
+    }
+
+    #routeTable tr {
+        margin-bottom: 15px;
+        border: 1px solid var(--border-color);
+        display: block;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    #routeTable td:last-child {
+        text-align: center;
+    }
+
+    .add-row-button, .assign-button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+/* --- */
+/* Estilos para el Footer */
+footer {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 30px 20px;
+    margin-top: 50px;
+    box-shadow: 0 -2px 5px var(--shadow-color);
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 250px;
+    margin: 10px 0;
+}
+
+.footer-section.about p {
+    margin-bottom: 5px;
+    font-size: 0.95em;
+}
+
+.footer-section h3 {
+    color: white;
+    margin-bottom: 15px;
+    font-size: 1.3em;
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 5px;
+    display: inline-block; /* Para que el borde se ajuste al texto */
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 8px;
+}
+
+.footer-section ul li a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 1em;
+}
+
+.footer-section ul li a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+.social-icons a {
+    color: white;
+    font-size: 1.8em;
+    margin: 0 10px;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.social-icons a:hover {
+    color: var(--secondary-color);
+    transform: scale(1.1);
+}
+
+/* Responsividad para el footer */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-section {
+        margin-bottom: 25px;
+        text-align: center;
+    }
+
+    .footer-section h3 {
+        margin-bottom: 10px;
+    }
+
+    .social-icons {
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    footer {
+        padding: 20px 10px;
+    }
+    .footer-section p, .footer-section ul li a {
+        font-size: 0.9em;
+    }
+    .social-icons a {
+        font-size: 1.5em;
+        margin: 0 8px;
+    }
 }
