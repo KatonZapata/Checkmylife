@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Contraseña</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="/css/recuperaContra.css"> 
+</head>
+<body>
+    <div class="recover-container">
+        <button type="button" class="btn-back" id="backToLogin"><i class="fas fa-arrow-left"></i></button>
+        <h1>Recuperar Contraseña</h1>
+        <p>Por favor, ingresa tu usuario, teléfono y correo electrónico para ayudarte a recuperar tu contraseña.</p>
+        <form id="recoverForm">
+            <label for="usuario">Usuario:</label>
+            <input type="text" id="usuario" name="usuario" placeholder="Tu nombre de usuario" required>
+
+            <label for="telefono">Teléfono:</label>
+            <input type="tel" id="telefono" name="telefono" placeholder="Tu número de teléfono" required>
+
+            <label for="correo">Correo Electrónico:</label>
+            <input type="email" id="correo" name="correo" placeholder="Tu correo electrónico" required>
+
+            <button type="submit">Enviar Solicitud</button>
+        </form>
+    </div>
+
+    <script src="/js/recuperaContra.js"></script>
+</body>
+</html>

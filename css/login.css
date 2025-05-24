@@ -1,0 +1,428 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background-color: #e2e2e2;
+    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    padding: 20px;
+}
+
+.contenedor {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    width: 768px;
+    max-width: 100%;
+    min-height: 550px;
+}
+
+.contenedor p {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.3px;
+    margin: 20px 0;
+    color: #333;
+}
+
+.contenedor span {
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.contenedor a {
+    color: #007bff;
+    font-size: 13px;
+    text-decoration: none;
+    margin: 10px 0 5px;
+    transition: color 0.3s ease;
+}
+
+.contenedor a:hover {
+    color: #f7931e;
+}
+
+.contenedor button {
+    background-color: #f7931e;
+    color: #fff;
+    font-size: 12px;
+    padding: 8px 40px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.contenedor button:hover {
+    background-color: #e08316;
+    transform: translateY(-2px);
+}
+
+.contenedor button.oculto {
+    background-color: transparent;
+    border-color: #fff;
+    color: #fff;
+}
+
+.contenedor button.oculto:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.contenedor form {
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 25px 40px 15px;
+    height: 100%;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.contenedor input {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    margin: 4px 0;
+    padding: 8px 15px;
+    font-size: 13px;
+    border-radius: 8px;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contenedor input:focus {
+    border-color: #f7931e;
+    box-shadow: 0 0 5px rgba(247, 147, 30, 0.5);
+}
+
+.acciones-sesion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 15px;
+    gap: 15px;
+    flex-wrap: wrap;
+    /* Ajuste para que el botón "Regresar" caiga a una nueva línea si es necesario */
+    align-items: flex-start; /* Asegura que los elementos se alineen al inicio si se rompen */
+}
+
+.acciones-sesion .huella-icono {
+    font-size: 30px;
+    color: #f7931e;
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.3s ease;
+}
+
+.acciones-sesion .huella-icono:hover {
+    transform: scale(1.1);
+    color: #e08316;
+}
+
+/* Estilos para el botón "Regresar" (ID "regresar") */
+#regresar {
+    background-color: transparent;
+    border: 1px solid #6c757d;
+    color: #6c757d;
+    font-size: 11px;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    white-space: nowrap;
+    
+    /* Para que el botón de Regresar caiga a la línea de abajo */
+    flex-basis: 100%; /* Ocupa todo el ancho disponible forzando una nueva línea */
+    margin-top: 25px; /* Más margen superior para bajarlo aún más */
+    width: auto; /* Permite que el ancho se ajuste al padding */
+    max-width: 150px; /* Limita el ancho del botón para que no sea muy grande */
+}
+
+#regresar:hover {
+    background-color: #6c757d;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.contenedor-formulario {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all 0.6s ease-in-out;
+}
+
+.iniciar-sesion {
+    left: 0;
+    width: 50%;
+    z-index: 2;
+}
+
+.contenedor.activo .iniciar-sesion {
+    transform: translateX(100%);
+}
+
+.registrarse {
+    left: 0;
+    width: 50%;
+    opacity: 0;
+    z-index: 1;
+}
+
+.contenedor.activo .registrarse {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+    animation: mover 0.6s;
+}
+
+@keyframes mover {
+    0%, 49.99% {
+        opacity: 0;
+        z-index: 1;
+    }
+    50%, 100% {
+        opacity: 1;
+        z-index: 5;
+    }
+}
+
+.contenedor-alternar {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: all 0.6s ease-in-out;
+    border-radius: 15px 0 0 15px;
+    z-index: 1000;
+}
+
+.contenedor.activo .contenedor-alternar {
+    transform: translateX(-100%);
+    border-radius: 0 15px 15px 0;
+}
+
+.alternar {
+    background-color: #000;
+    height: 100%;
+    background: linear-gradient(to right, #333, #000);
+    color: #fff;
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    transform: translateX(0);
+    transition: all 0.6s ease-in-out;
+}
+
+.contenedor.activo .alternar {
+    transform: translateX(50%);
+}
+
+.panel-alternar {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 30px;
+    text-align: center;
+    top: 0;
+    transform: translateX(0);
+    transition: all 0.6s ease-in-out;
+}
+
+.panel-alternar h1 {
+    color: #f7931e;
+    margin-bottom: 15px;
+    font-size: 2.2em;
+}
+
+.panel-alternar p {
+    color: #fff;
+    font-size: 1.05em;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+.alternar-izquierda {
+    transform: translateX(-200%);
+}
+
+.contenedor.activo .alternar-izquierda {
+    transform: translateX(0);
+}
+
+.alternar-derecha {
+    right: 0;
+    transform: translateX(0);
+}
+
+.contenedor.activo .alternar-derecha {
+    transform: translateX(200%);
+}
+
+@media(max-width:768px){
+    body {
+        padding: 10px;
+    }
+
+    .contenedor {
+        min-height: 600px;
+    }
+
+    .contenedor p {
+        font-size: 13px;
+    }
+    .contenedor span {
+        font-size: 11px;
+    }
+    .contenedor a {
+        font-size: 12px;
+    }
+    .contenedor button {
+        padding: 8px 30px;
+        font-size: 11px;
+    }
+    .contenedor input {
+        padding: 7px 12px;
+        font-size: 12px;
+    }
+    .acciones-sesion .huella-icono {
+        font-size: 25px;
+    }
+
+    .contenedor-formulario {
+        width: 100%;
+        height: auto;
+        position: relative;
+        top: auto;
+        left: auto;
+        padding-bottom: 20px;
+    }
+
+    .iniciar-sesion {
+        transform: translateX(0) !important;
+        opacity: 1 !important;
+        z-index: 2;
+        animation: none !important;
+    }
+
+    .registrarse {
+        transform: translateX(0) !important;
+        opacity: 1 !important;
+        z-index: 1;
+        animation: none !important;
+    }
+
+    .contenedor-alternar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        left: auto;
+        top: auto;
+        border-radius: 0;
+        transform: translateX(0) !important;
+        z-index: 1;
+        padding: 20px 0;
+        text-align: center;
+    }
+
+    .alternar {
+        width: 100%;
+        height: auto;
+        left: 0;
+        transform: translateX(0) !important;
+        flex-direction: column;
+    }
+
+    .panel-alternar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        padding: 20px;
+        transform: translateX(0) !important;
+        text-align: center;
+    }
+
+    .contenedor button.oculto {
+        display: block;
+        width: 80%;
+        margin: 10px auto;
+        padding: 10px 20px;
+        color: #f7931e;
+        border-color: #f7931e;
+        background-color: transparent;
+    }
+    .contenedor button.oculto:hover {
+        background-color: rgba(247, 147, 30, 0.1);
+    }
+
+    .panel-alternar h1 {
+        font-size: 1.8em;
+    }
+    .panel-alternar p {
+        font-size: 0.9em;
+    }
+
+    .contenedor.activo .iniciar-sesion {
+        display: none;
+    }
+    .contenedor.activo .registrarse {
+        display: block;
+    }
+
+    .contenedor:not(.activo) .registrarse {
+        display: none;
+    }
+    .contenedor:not(.activo) .iniciar-sesion {
+        display: block;
+    }
+
+    .contenedor.activo .alternar-derecha {
+        display: none;
+    }
+    .contenedor:not(.activo) .alternar-izquierda {
+        display: none;
+    }
+
+    .contenedor form {
+        justify-content: flex-start;
+        padding-top: 20px;
+        /* No necesitamos padding-bottom extra si el botón se maneja con flex-basis y margin-top */
+    }
+
+    #regresar { /* Referencia directa al ID para anular otros estilos si es necesario */
+        font-size: 9px;
+        padding: 5px 10px;
+        margin-top: 20px; /* Ajuste para móvil, más espacio abajo */
+        flex-basis: 100%;
+        order: 100; /* Asegura que vaya al final en el orden de flexbox */
+    }
+}
