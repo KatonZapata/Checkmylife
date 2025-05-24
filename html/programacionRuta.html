@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CheckMyLife - Sistema de Seguridad</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <img src="./img/logo CkeckMyLife.jpeg" alt="Logo CheckMyLife" class="logo">
+            <span class="app-name">CheckMyLife</span>
+        </div>
+        <div class="header-right">
+            <label for="user-status" class="user-info">
+                <i class="fas fa-user-circle"></i>
+                <span id="username">Nombre de Usuario</span>
+            </label>
+            <label for="status-indicator" class="status-info">
+                Estado: <span id="status-indicator" class="status-active">Activo</span>
+            </label>
+            <button class="call-button" title="Realizar llamada de emergencia">
+                <i class="fas fa-phone"></i>
+            </button>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#"><i class="fas fa-user-tie"></i> Conductores</a></li>
+            <li><a href="#"><i class="fas fa-user-shield"></i> Coordinadores</a></li>
+            <li><a href="#contact-footer"><i class="fas fa-envelope"></i> Contáctenos</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="action-buttons">
+            <button class="main-button"><i class="fas fa-map-marker-alt"></i> Ver Rutas</button>
+            <button class="main-button"><i class="fas fa-car"></i> Vehículos</button>
+            <button class="main-button"><i class="fas fa-chart-line"></i> Reportes</button>
+            <button class="main-button"><i class="fas fa-cog"></i> Asignar vehiculos</button>
+        </section>
+
+        <section class="route-assignment">
+            <h2>Asignación de Rutas</h2>
+            <form id="routeForm">
+                <table id="routeTable">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Placa</th>
+                            <th>Origen</th>
+                            <th>Destino</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="text" name="nombre[]" required></td>
+                            <td><input type="text" name="apellido[]" required></td>
+                            <td><input type="text" name="placa[]" required></td>
+                            <td><input type="text" name="origen[]" required></td>
+                            <td><input type="text" name="destino[]" required></td>
+                            <td><button type="button" class="remove-row-button"><i class="fas fa-trash-alt"></i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="button" class="add-row-button"><i class="fas fa-plus"></i> Añadir Ruta</button>
+                <button type="submit" class="assign-button"><i class="fas fa-check-circle"></i> Asignar Rutas</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section about">
+                <p>&copy; <span id="current-year"></span> CheckMyLife. Todos los derechos reservados.</p>
+                <p>Creadores: Juan Pérez, María García, Carlos Rodríguez</p>
+            </div>
+            <div class="footer-section links">
+                <h3>Enlaces Rápidos</h3>
+                <ul>
+                    <li><a href="#contact-footer">Contáctenos</a></li>
+                    <li><a href="#">Política de Tratamiento de Datos</a></li>
+                </ul>
+            </div>
+            <div class="footer-section social">
+                <h3>Síguenos</h3>
+                <div class="social-icons">
+                    <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
