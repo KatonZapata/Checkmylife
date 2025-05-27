@@ -1,0 +1,58 @@
+<!DOCTYPE html> 
+<html lang="es"> 
+
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"> 
+    <link rel="stylesheet" href="/css/loginCoordinador.css"> 
+    <title>Login Coordinador</title> 
+</head> 
+
+<body> 
+
+    <div class="contenedor" id="contenedor"> 
+        <div class="contenedor-formulario registrarse"> 
+            <form id="formRegistroCoordinador"> <h1>Crear Cuenta</h1> 
+                <span>Usa tu correo para registrarte</span> 
+                <input type="text" placeholder="Nombre y Apellidos" required> 
+                <input type="tel" placeholder="Telefono" required> 
+                <input type="email" placeholder="Correo" required> 
+                <input type="text" placeholder="Numero de licencia" required> 
+                <input type="date" placeholder="Fecha Vencimiento" required> 
+                <input type="text" placeholder="Usuario" required> 
+                <input type="password" placeholder="Ingresa una contraseña" required> 
+                <input type="password" placeholder="Repite la contraseña" required> 
+                <button type="submit">Registrarse</button> 
+                <button type="button" class="btn-regresar">Regresar</button> </form>  //
+        </div> 
+        <div class="contenedor-formulario iniciar-sesion"> 
+            <form id="formLoginCoordinador"> <h1>Iniciar Sesión</h1> 
+                <span>Usa tu correo y contraseña</span> 
+                <input type="text" placeholder="Usuario" id="loginUsuario"> <input type="password" placeholder="Contraseña" id="loginContrasena"> <a href="recuperarContra.html">¿Olvidaste tu Contraseña?</a> 
+                <div class="acciones-sesion"> 
+                    <button type="submit" id="btnIniciarSesionCredenciales">Iniciar Sesión</button> <i class="fa-solid fa-fingerprint huella-icono" id="huellaLoginCoordinador"></i> <button type="button" class="btn-regresar">Regresar</button> </div> 
+            </form> 
+        </div> 
+        <div class="contenedor-alternar"> 
+            <div class="alternar"> 
+                <div class="panel-alternar alternar-izquierda"> 
+                    <img src="/img/logo CkeckMyLife.png" alt="LogoCheckMyLife" width="38%"> 
+                    <h1>¡Bienvenido!</h1> 
+                    <p>Ingresa tus datos personales para usar todas las funciones del sitio</p> 
+                    <button class="oculto" id="iniciarSesion">Iniciar Sesión</button> 
+                </div> 
+                <div class="panel-alternar alternar-derecha"> 
+                    <img src="/img/logo CkeckMyLife.png" alt="LogoCheckMyLife" width="38%"> 
+                    <h1>¡Hola, Amigo!</h1> 
+                    <p>Regístrate con tus datos personales para usar todas las funciones del sitio</p> 
+                    <button class="oculto" id="registrarse">Registrarse</button> 
+                </div> 
+            </div> 
+        </div> 
+    </div> 
+
+    <script src="/js/loginCoordinador.js"></script> 
+</body> 
+
+</html>
