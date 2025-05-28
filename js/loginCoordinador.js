@@ -1,4 +1,7 @@
-   import { persona } from "/js/persona.js"; 
+   import { Conductor } from "/js/conductor.js";
+ document.addEventListener('DOMContentLoaded', () => {
+    // Espera a que el DOM esté completamente cargado
+
 const contenedor = document.getElementById('contenedor');
 const botonRegistrarse = document.getElementById('registrarse');
 const botonIniciarSesion = document.getElementById('iniciarSesion');
@@ -8,7 +11,7 @@ const botonRegresar = document.getElementById('regresar');
 
 botonRegistrarse.addEventListener('click', () => {
  
-      const nuevoUsuario = new persona({
+      const nuevoUsuario = new Conductor({
         
         nombres: document.getElementById('nombres').value,
         apellidos: document.getElementById('apellidos').value,
@@ -31,3 +34,5 @@ botonIniciarSesion.addEventListener('click', () => {
 document.getElementById('regresar').addEventListener('click', function() {
     window.location.href = '/html/index.html';
 });
+
+ });
