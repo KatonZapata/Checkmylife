@@ -16,13 +16,14 @@
             <form>
                 <h1>Crear Cuenta</h1>
                 <span>Usa tu correo para registrarte</span>
-                <input type="text" placeholder="Nombre y Apellidos">
-                <input type="tel" placeholder="Telefono">
-                <input type="email" placeholder="Correo">
-                <input type="number" placeholder="Numero de licencia">
+                <input type="text" id ="nombres" placeholder="Nombre y Apellidos">
+                <input type="tel" id="apellidos" placeholder="Telefono">
+                <input type="email" id ="email" placeholder="Correo">
+                <input type="number" id="celular" placeholder="Numero de licencia">
+                 <input type="number" id="documento" placeholder="documento">
                 <input type="date" placeholder="Fecha Vencimiento">
-                <input type="text" placeholder="Usuario">
-                <input type="password" placeholder="Ingresa una contraseña">
+                <input type="text" id="usuario" placeholder="Usuario">
+                <input type="password" id="contrasena" placeholder="Ingresa una contraseña">
                 <input type="password" placeholder="Repite la contraseña">
                 <button>Registrarse</button>
             </form>
@@ -50,13 +51,13 @@
                 <div class="panel-alternar alternar-derecha">
                     <h1>¡Hola, Amigo!</h1>
                     <p>Regístrate con tus datos personales para usar todas las funciones del sitio</p>
-                    <button class="oculto" id="registrarse">Registrarse</button>
+                    <input type="button" class="oculto" id="registrarse">Registrarse</imput>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="/js/login.js"></script>
+    <script  type ="module" src="/js/login.js"></script>
 </body>
 
 </html>
