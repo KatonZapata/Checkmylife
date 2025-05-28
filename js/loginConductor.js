@@ -9,15 +9,18 @@ document.addEventListener('DOMContentLoaded', () => {
      
           const nuevoConductor = new Conductor ({
             
-            nombres: document.getElementById('nombres').value,
-            apellidos: document.getElementById('apellidos').value,
-            celular: document.getElementById('celular').value,
-            documento: document.getElementById('documento').value,
-            usuario: document.getElementById('usuario').value,
-            contrasena: document.getElementById('contrasena').value,
-            email: document.getElementById('email').value,
-            licencia: document.getElementById('licencia').value,
-            fechaVencimiento: document.getElementById('fechaVencimiento').value,
+        nombres: document.getElementById('nombres').value,
+        apellidos: document.getElementById('apellidos').value,
+        celular: document.getElementById('celular').value,
+        documento: document.getElementById('documento').value,
+        licencia: document.getElementById('licencia').value,
+        vehiculoASignado: document.getElementById('vehiculoASignado').value,
+        huella: document.getElementById('huella').value,
+        fechaVencimiento: document.getElementById('fechaVencimiento').value,
+        documento: document.getElementById('documento').value,
+        usuario: document.getElementById('usuario').value,
+        contrasena: document.getElementById('contrasena').value,
+        email: document.getElementById('email').value,  
         
         });
          console.log(nuevoConductor); 
