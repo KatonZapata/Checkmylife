@@ -2,51 +2,62 @@ import { Conductor } from "/js/conductor.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     const contenedor = document.getElementById('contenedor');
-    const registrarseBtn = document.getElementById('registrarse');
-    const iniciarSesionBtn = document.getElementById('iniciarSesion');
+    const btnMostrarRegistro = document.getElementById('mostrarRegistro');
+    const btnMostrarLogin = document.getElementById('iniciarSesion');
+    const formRegistro = document.getElementById('formRegistroConductor');
 
-    registrarseBtn.addEventListener('click', () => {
-     
-          const nuevoConductor = new Conductor ({
-            
-        nombres: document.getElementById('nombres').value,
-        apellidos: document.getElementById('apellidos').value,
-        celular: document.getElementById('celular').value,
-        documento: document.getElementById('documento').value,
-        licencia: document.getElementById('licencia').value,
-        vehiculoASignado: document.getElementById('vehiculoASignado').value,
-        huella: document.getElementById('huella').value,
-        fechaVencimiento: document.getElementById('fechaVencimiento').value,
-        documento: document.getElementById('documento').value,
-        usuario: document.getElementById('usuario').value,
-        contrasena: document.getElementById('contrasena').value,
-        email: document.getElementById('email').value,  
-        
-        });
-         console.log(nuevoConductor); 
-    
-        contenedor.classList.add("activo");
-    });
-
-    if (registrarseBtn && iniciarSesionBtn && contenedor) {
-        registrarseBtn.addEventListener('click', () => {
+    // Alternar formularios
+    if (btnMostrarRegistro) {
+        btnMostrarRegistro.addEventListener('click', () => {
             contenedor.classList.add('activo');
         });
-
-        iniciarSesionBtn.addEventListener('click', () => {
+    }
+    if (btnMostrarLogin) {
+        btnMostrarLogin.addEventListener('click', () => {
             contenedor.classList.remove('activo');
         });
     }
 
-    const regresarBtns = document.querySelectorAll('.btn-regresar');
+    // Registro de usuario
+    if (formRegistro) {
+        formRegistro.addEventListener('submit', (e) => {
+            e.preventDefault();
 
+            const contrasena = document.getElementById('contrasena').value;
+            const repitaContrasena = document.getElementById('repitaContrasena').value;
+
+            if (contrasena !== repitaContrasena) {
+                alert("Las contraseñas no coinciden");
+                return;
+            }
+
+            const nuevoConductor = new Conductor({
+                nombres: document.getElementById('nombres').value,
+                apellidos: document.getElementById('apellidos').value,
+                celular: document.getElementById('celular').value,
+                documento: document.getElementById('documento').value,
+                licencia: document.getElementById('licencia').value,
+                fechaVencimiento: document.getElementById('fechaVencimiento').value,
+                usuario: document.getElementById('usuario').value,
+                contrasena: contrasena,
+                email: document.getElementById('correo').value
+            });
+
+            console.log(nuevoConductor);
+            // Aquí puedes agregar lógica para guardar el usuario o mostrar un mensaje de éxito
+        });
+    }
+
+    // Botones regresar
+    const regresarBtns = document.querySelectorAll('.btn-regresar');
     regresarBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             window.history.back();
         });
     });
 
-    const fingerprintIcon = document.getElementById('huellaLoginCoordinador');
+    // Huella digital (ajusta el ID según tu HTML)
+    const fingerprintIcon = document.getElementById('huellaLoginConductor');
     let pressTimer;
     const PRESS_DURATION = 3000;
     const TARGET_PAGE = '/html/index.html';
@@ -63,9 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function startPress(e) {
             e.preventDefault();
-            console.log('Presión iniciada. Temporizador en marcha...');
             pressTimer = setTimeout(() => {
-                console.log('¡3 segundos alcanzados! Redirigiendo...');
                 window.location.href = TARGET_PAGE;
             }, PRESS_DURATION);
         }
@@ -74,17 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (pressTimer) {
                 clearTimeout(pressTimer);
                 pressTimer = null;
-                console.log('Presión terminada antes de 3 segundos o cancelada.');
             }
         }
-    } else {
-        console.warn('El icono de la huella digital con ID "huellaLoginCoordinador" no fue encontrado. Verifica el ID en tu HTML.');
-    }
-
-    const btnIniciarSesionHuella = document.getElementById('btnIniciarSesionHuella');
-    if (btnIniciarSesionHuella) {
-        btnIniciarSesionHuella.addEventListener('click', () => {
-            console.log('Botón "Ingresar con Huella" clickeado.');
-        });
     }
 });
