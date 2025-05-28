@@ -1,7 +1,32 @@
+import { Conductor } from "/js/conductor.js";
+
 document.addEventListener('DOMContentLoaded', () => {
     const contenedor = document.getElementById('contenedor');
     const registrarseBtn = document.getElementById('registrarse');
     const iniciarSesionBtn = document.getElementById('iniciarSesion');
+
+    registrarseBtn.addEventListener('click', () => {
+     
+          const nuevoConductor = new Conductor ({
+            
+        nombres: document.getElementById('nombres').value,
+        apellidos: document.getElementById('apellidos').value,
+        celular: document.getElementById('celular').value,
+        documento: document.getElementById('documento').value,
+        licencia: document.getElementById('licencia').value,
+        vehiculoASignado: document.getElementById('vehiculoASignado').value,
+        huella: document.getElementById('huella').value,
+        fechaVencimiento: document.getElementById('fechaVencimiento').value,
+        documento: document.getElementById('documento').value,
+        usuario: document.getElementById('usuario').value,
+        contrasena: document.getElementById('contrasena').value,
+        email: document.getElementById('email').value,  
+        
+        });
+         console.log(nuevoConductor); 
+    
+        contenedor.classList.add("activo");
+    });
 
     if (registrarseBtn && iniciarSesionBtn && contenedor) {
         registrarseBtn.addEventListener('click', () => {

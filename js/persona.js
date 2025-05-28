@@ -1,4 +1,4 @@
- export class persona {
+ export class Persona {
   constructor({nombres, apellidos, celular, documento, usuario, contrasena,email}){
     this._nombres = nombres;
     this._apellidos = apellidos;    
