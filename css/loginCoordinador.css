@@ -57,18 +57,18 @@ body {
 }
 
 .contenedor button {
-    background-color: #f7931e;
-    color: #fff;
-    font-size: 12px;
-    padding: 8px 40px;
-    border: 1px solid transparent;
-    border-radius: 8px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
+        background-color: #f7931e; /* Este es el naranja */
+        color: #fff;
+        font-size: 12px;
+        padding: 8px 40px;
+        border: 1px solid transparent;
+        border-radius: 8px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
 
 .contenedor button:hover {
     background-color: #e08316;
@@ -92,7 +92,7 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    padding: 25px 40px 15px;
+    padding: 15px 40px 20px;
     height: 100%;
     box-sizing: border-box;
     position: relative;
@@ -139,8 +139,7 @@ body {
     color: #e08316;
 }
 
-/* Estilos para el botón "Regresar" (ahora usando la clase btn-regresar) */
-.btn-regresar { /* C A M B I A D O: de #regresar a .btn-regresar */
+.contenedor .btn-regresar { 
     background-color: transparent;
     border: 1px solid #6c757d;
     color: #6c757d;
@@ -153,15 +152,12 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
     white-space: nowrap;
+    flex-basis: 100%;
+    margin-top: 20px;
+    width: auto;
+    max-width: 150px; }
 
-    /* Para que el botón de Regresar caiga a la línea de abajo */
-    flex-basis: 100%; /* Ocupa todo el ancho disponible forzando una nueva línea */
-    margin-top: 25px; /* Más margen superior para bajarlo aún más */
-    width: auto; /* Permite que el ancho se ajuste al padding */
-    max-width: 150px; /* Limita el ancho del botón para que no sea muy grande */
-}
-
-.btn-regresar:hover { /* C A M B I A D O: de #regresar:hover a .btn-regresar:hover */
+.contenedor .btn-regresar:hover { /* C A M B I A D O: de #regresar:hover a .btn-regresar:hover */
     background-color: #6c757d;
     color: #fff;
     transform: translateY(-2px);
@@ -418,11 +414,11 @@ body {
         /* No necesitamos padding-bottom extra si el botón se maneja con flex-basis y margin-top */
     }
 
-    .btn-regresar { /* C A M B I A D O: de #regresar a .btn-regresar */
+    .btn-regresar { 
         font-size: 9px;
         padding: 5px 10px;
-        margin-top: 20px; /* Ajuste para móvil, más espacio abajo */
+        margin-top: 20px; 
         flex-basis: 100%;
-        order: 100; /* Asegura que vaya al final en el orden de flexbox */
+        order: 100; 
     }
 }
