@@ -1,6 +1,6 @@
 
-        document.getElementById('backToLogin').addEventListener('click', function() {
-            window.location.href = 'login.html'; // Vuelve a la página de login
+        document.getElementById('volver').addEventListener('click', function() {
+            window.location.href = '/html/loginCoordinador.html'; // Vuelve a la página de login
         });
 
         document.getElementById('recoverForm').addEventListener('submit', function(event) {

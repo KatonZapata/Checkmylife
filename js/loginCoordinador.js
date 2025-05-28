@@ -29,5 +29,5 @@ botonIniciarSesion.addEventListener('click', () => {
 });
 
 document.getElementById('regresar').addEventListener('click', function() {
-    window.location.href = 'cuenta.html';
+    window.location.href = '/html/index.html';
 });
