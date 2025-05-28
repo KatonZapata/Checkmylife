@@ -12,6 +12,9 @@ botonIniciarSesion.addEventListener('click', () => {
     contenedor.classList.remove("activo");
 });
 
-document.getElementById('regresar').addEventListener('click', function() {
+document.getElementById('volver').addEventListener('click', function() {
+    window.location.href = '/html/index.html';
+});
+document.getElementById('volver1').addEventListener('click', function() {
     window.location.href = '/html/index.html';
 });

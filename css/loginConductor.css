@@ -70,7 +70,6 @@ body {
 }
 
 
-
 .contenedor button.oculto {
     background-color: transparent;
     border-color: #fff;
@@ -159,33 +158,28 @@ body {
 }
 
 /* Estilos para los botones "Regresar" (sin animación ni cambio de color al hover) */
-.btn-regresar {
+.contenedor .btn-regresar {
     background-color: #fff; /* Fondo blanco */
     border: 1px solid #6c757d; /* Borde gris */
-    color: #6c757d; /* Texto gris */
+    color: #6c757d; 
     font-size: 11px;
     padding: 8px 20px;
-    border-radius: 8px; /* Bordes redondeados */
+    border-radius: 8px; 
     font-weight: 600;
     letter-spacing: 0.5px;
     text-transform: uppercase;
     cursor: pointer;
     white-space: nowrap;
-
-    /* QUITAMOS LA TRANSICIÓN PARA QUE NO HAYA EFECTOS AL HOVER */
-    transition: none; /* ELIMINADO cualquier transición para un efecto estático */
-
-    /* Posicionamiento del botón de regresar */
+    
     position: absolute;
-    bottom: 15px; /* Distancia desde el borde inferior */
+    bottom: 15px;
     left: 50%;
-    transform: translateX(-50%); /* Centrar horizontalmente */
-    width: auto; /* Ancho automático según contenido */
-    max-width: 150px; /* Limitar el ancho */
-    z-index: 10; /* Asegurar que esté por encima de otros elementos */
-}
+    transform: translateX(-50%); 
+    width: auto;
+    max-width: 150px; 
+    z-index: 10; }
 
-.btn-regresar:hover {
+.contenedor .btn-regresar:hover {
     /* Mantenemos los mismos estilos que el estado normal para que no haya cambios al hover */
     background-color: #fff;
     border: 1px solid #6c757d;
