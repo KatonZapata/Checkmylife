@@ -1,4 +1,3 @@
-
 const contenedor = document.getElementById('contenedor');
 const botonRegistrarse = document.getElementById('registrarse');
 const botonIniciarSesion = document.getElementById('iniciarSesion');

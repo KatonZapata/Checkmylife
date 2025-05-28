@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="../css/login.css">
     <title>Login</title>
 </head>
 
@@ -16,15 +16,16 @@
             <form>
                 <h1>Crear Cuenta</h1>
                 <span>Usa tu correo para registrarte</span>
-                <input type="text" placeholder="Nombre y Apellidos">
-                <input type="tel" placeholder="Telefono">
-                <input type="email" placeholder="Correo">
-                <input type="number" placeholder="Numero de licencia">
-                <input type="date" placeholder="Fecha Vencimiento">
-                <input type="text" placeholder="Usuario">
-                <input type="password" placeholder="Ingresa una contraseña">
-                <input type="password" placeholder="Repite la contraseña">
-                <button>Registrarse</button>
+                <input type="text" id="nombre" placeholder="Nombre" required>
+                <input type="text" id="apellido" placeholder="Apellidos" required>
+                <input type="tel" id="celular" placeholder="Telefono" required>
+                <input type="email" id="email" placeholder="Correo" required>
+                <input type="number" id="documento" placeholder="Numero de licencia" required>
+                <input type="date" id="fecha" placeholder="Fecha Vencimiento" required>
+                <input type="text" id="usuario" placeholder="Usuario" required>
+                <input type="password" id="contrasena" placeholder="Ingresa una contraseña" required>
+                <input type="password" id="repetirContrasena" placeholder="Repite la contraseña" required>
+                <button type="button" id="registro">Registrarse</button>
             </form>
         </div>
         <div class="contenedor-formulario iniciar-sesion">
@@ -55,8 +56,7 @@
             </div>
         </div>
     </div>
-
-    <script src="/js/login.js"></script>
+<script type="module" src="../js/login.js"></script>
 </body>
 
 </html>
