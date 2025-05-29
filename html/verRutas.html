@@ -4,9 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CheckMyLife - Ver Rutas</title>
+<<<<<<< HEAD
     <link rel="stylesheet" href="../css/style.css"> 
     <link rel="stylesheet" href="../css/rutas-style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+=======
+    <link rel="stylesheet" href="style.css"> <link rel="stylesheet" href="rutas-style.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css"/>
+>>>>>>> 735fc66356ed0f9810fcf89c66777ce2defc670b
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 <body>
@@ -26,6 +32,9 @@
             <button class="call-button" title="Realizar llamada de emergencia">
                 <i class="fas fa-phone"></i>
             </button>
+                <div class="energy-bar">
+        <div id="energy-fill"></div>
+    </div>
         </div>
     </header>
 
@@ -46,7 +55,15 @@
             <button class="main-button"><i class="fas fa-cog"></i> Configuración</button>
         </section>
         <section class="map-and-camera-container">
-            <div class="map-section">
+                <div class="main-container">
+                    <div class="video-call">Videollamada activa</div>
+                    <div class="map" id="map"></div>
+                    <div class="info">
+                    <div id="infoOrigen">Origen: 6.2442, -75.5812</div>
+                    <div id="infoDestino">Destino: 6.2700, -75.5700</div>
+                    <div id="infoActual">Actual: 6.2700, -75.5700</div>
+                </div>
+          
                 <h2>Ubicación de Vehículos y Rutas</h2>
                 <div id="mapid"></div> <div class="map-controls">
                     <select id="vehicle-select">
@@ -103,6 +120,10 @@
         </div>
     </footer>
 
+    
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+    <script src="/js/monitoreoV.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('current-year').textContent = new Date().getFullYear();

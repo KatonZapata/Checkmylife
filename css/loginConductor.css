@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+/* loginConductor.css */
+@import url('https://fonts.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
 * {
     margin: 0;
@@ -66,14 +67,8 @@ body {
     font-weight: 600;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.contenedor button:hover {
-    background-color: #e08316;
-    transform: translateY(-2px);
-}
 
 .contenedor button.oculto {
     background-color: transparent;
@@ -90,15 +85,17 @@ body {
     background-color: #fff;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; /* Centra el contenido verticalmente */
     flex-direction: column;
     padding: 25px 40px 15px;
     height: 100%;
     box-sizing: border-box;
-    position: relative;
+    position: relative; /* Esencial para el posicionamiento absoluto del botón de regresar */
+    padding-bottom: 80px; /* Espacio para el botón de regresar al final */
 }
 
-.contenedor input {
+/* INPUTS: Solo los inputs del formulario de registro deben ser visibles */
+.contenedor .registrarse input { /* Los inputs del formulario de registro */
     background-color: #f0f0f0;
     border: 1px solid #ccc;
     margin: 4px 0;
@@ -108,65 +105,90 @@ body {
     width: 100%;
     outline: none;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    display: block; /* Asegura que sean visibles */
 }
 
-.contenedor input:focus {
+.contenedor .registrarse input:focus {
     border-color: #f7931e;
     box-shadow: 0 0 5px rgba(247, 147, 30, 0.5);
 }
 
-.acciones-sesion {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin-top: 15px;
-    gap: 15px;
-    flex-wrap: wrap;
-    /* Ajuste para que el botón "Regresar" caiga a una nueva línea si es necesario */
-    align-items: flex-start; /* Asegura que los elementos se alineen al inicio si se rompen */
+/* Ocultar inputs y enlaces en el formulario de inicio de sesión */
+.contenedor-formulario.iniciar-sesion form input,
+.contenedor-formulario.iniciar-sesion form a {
+    display: none;
 }
 
-.acciones-sesion .huella-icono {
-    font-size: 30px;
-    color: #f7931e;
-    cursor: pointer;
-    transition: transform 0.2s ease, color 0.3s ease;
+/* Estilos para el ícono de huella grande en el login de Conductor */
+.huella-icono.large-huella {
+    font-size: 120px; /* Tamaño grande para destacar */
+    margin: 40px 0; /* Espacio alrededor */
+    color: #f7931e; /* Color primario */
+    cursor: pointer; /* Indica que es interactuable */
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 
-.acciones-sesion .huella-icono:hover {
-    transform: scale(1.1);
+.huella-icono.large-huella:hover {
+    transform: scale(1.05); /* Ligero efecto al pasar el mouse */
     color: #e08316;
 }
 
-/* Estilos para el botón "Regresar" (ID "regresar") */
-#regresar {
-    background-color: transparent;
-    border: 1px solid #6c757d;
-    color: #6c757d;
-    font-size: 11px;
-    padding: 8px 20px;
+/* Estilos para el botón de acción principal en el formulario de inicio de sesión (huella) */
+.btn-accion-huella {
+    background-color: #f7931e;
+    color: #fff;
+    font-size: 16px;
+    padding: 12px 40px;
+    border: none;
     border-radius: 8px;
     font-weight: 600;
     letter-spacing: 0.5px;
     text-transform: uppercase;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 250px;
+    margin-top: 20px;
+}
+
+.btn-accion-huella:hover {
+    background-color: #e08316;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para los botones "Regresar" (sin animación ni cambio de color al hover) */
+.contenedor .btn-regresar {
+    background-color: #fff; /* Fondo blanco */
+    border: 1px solid #6c757d; /* Borde gris */
+    color: #6c757d; 
+    font-size: 11px;
+    padding: 8px 20px;
+    border-radius: 8px; 
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
     white-space: nowrap;
     
-    /* Para que el botón de Regresar caiga a la línea de abajo */
-    flex-basis: 100%; /* Ocupa todo el ancho disponible forzando una nueva línea */
-    margin-top: 25px; /* Más margen superior para bajarlo aún más */
-    width: auto; /* Permite que el ancho se ajuste al padding */
-    max-width: 150px; /* Limita el ancho del botón para que no sea muy grande */
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%); 
+    width: auto;
+    max-width: 150px; 
+    z-index: 10; }
+
+.contenedor .btn-regresar:hover {
+    /* Mantenemos los mismos estilos que el estado normal para que no haya cambios al hover */
+    background-color: #fff;
+    border: 1px solid #6c757d;
+    color: #6c757d;
+    transform: translateX(-50%); /* Asegura que se mantenga centrado sin translateY */
+    cursor: default; /* Opcional: Cambia el cursor a default para indicar que no hay interacción visual adicional */
 }
 
-#regresar:hover {
-    background-color: #6c757d;
-    color: #fff;
-    transform: translateY(-2px);
-}
-
+/* El resto de tu CSS para el contenedor principal y el panel alternar se mantiene igual */
 .contenedor-formulario {
     position: absolute;
     top: 0;
@@ -314,8 +336,18 @@ body {
         padding: 7px 12px;
         font-size: 12px;
     }
-    .acciones-sesion .huella-icono {
-        font-size: 25px;
+
+    /* Ajuste para el ícono de huella en móvil */
+    .huella-icono.large-huella {
+        font-size: 80px; /* Un poco más pequeño para móviles */
+        margin: 20px 0;
+    }
+
+    /* Estilos para el botón de acción principal en el formulario de inicio de sesión (huella) */
+    .btn-accion-huella {
+        font-size: 14px;
+        padding: 10px 30px;
+        max-width: 200px;
     }
 
     .contenedor-formulario {
@@ -415,14 +447,18 @@ body {
     .contenedor form {
         justify-content: flex-start;
         padding-top: 20px;
-        /* No necesitamos padding-bottom extra si el botón se maneja con flex-basis y margin-top */
+        padding-bottom: 60px; /* Asegura espacio para el botón de regresar */
     }
 
-    #regresar { /* Referencia directa al ID para anular otros estilos si es necesario */
+    /* Estilos para el botón "Regresar" en móviles */
+    .btn-regresar { /* Aseguramos que se aplique correctamente en móvil */
         font-size: 9px;
         padding: 5px 10px;
-        margin-top: 20px; /* Ajuste para móvil, más espacio abajo */
-        flex-basis: 100%;
-        order: 100; /* Asegura que vaya al final en el orden de flexbox */
+        bottom: 10px; /* Ajuste para móvil */
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: 0; /* Anulamos posibles márgenes superiores del flexbox */
+        flex-basis: auto; /* Para que no ocupe todo el ancho si no es necesario */
+        order: auto; /* Restaurar el orden normal si fue alterado */
     }
 }

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="es">
 
@@ -6,50 +5,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="../css/login.css">
-    <title>Login</title>
+    <link rel="stylesheet" href="/css/loginCoordinador.css">
+    <title>Login Coordinador</title>
 </head>
 
 <body>
 
     <div class="contenedor" id="contenedor">
         <div class="contenedor-formulario registrarse">
-            <form>
+            <form id="formRegistroCoordinador">
                 <h1>Crear Cuenta</h1>
                 <span>Usa tu correo para registrarte</span>
-                <input type="text" id="nombre" placeholder="Nombre" required>
-                <input type="text" id="apellido" placeholder="Apellidos" required>
-                <input type="tel" id="celular" placeholder="Telefono" required>
-                <input type="email" id="email" placeholder="Correo" required>
-                <input type="number" id="documento" placeholder="Numero de licencia" required>
-                <input type="date" id="fecha" placeholder="Fecha Vencimiento" required>
+                <input type="text" id="nombres" placeholder="Nombres" required>
+                <input type="text" id="apellidos" placeholder="Apellidos" required>
+                <input type="text" id="documento" placeholder="Documento" required>
+                <input type="tel" id="celular" placeholder="Celular" required>
+                <input type="email" id="correo" placeholder="Correo" required>
                 <input type="text" id="usuario" placeholder="Usuario" required>
                 <input type="password" id="contrasena" placeholder="Ingresa una contraseña" required>
-                <input type="password" id="repetirContrasena" placeholder="Repite la contraseña" required>
-                <button type="button" id="registro">Registrarse</button>
+                <input type="password" id="repitaContrasena" placeholder="Repite la contraseña" required>
+                <button type="submit" id="btnRegistrarse">Registrarse</button>
+                <button type="button" id="volver" class="btn-regresar">Regresar</button>
             </form>
         </div>
         <div class="contenedor-formulario iniciar-sesion">
-            <form>
+            <form id="formLoginCoordinador">
                 <h1>Iniciar Sesión</h1>
                 <span>Usa tu correo y contraseña</span>
-                <input type="text" placeholder="Usuario">
-                <input type="password" placeholder="Contraseña">
+                <input type="text" placeholder="Usuario" id="loginUsuario">
+                <input type="password" placeholder="Contraseña" id="loginContrasena">
                 <a href="recuperarContra.html">¿Olvidaste tu Contraseña?</a>
-                <div class="acciones-sesion"> <button>Iniciar Sesión</button>
-                    <i class="fa-solid fa-fingerprint huella-icono"></i>
-                    <button type="button" id="regresar">Regresar</button>
+                <div class="acciones-sesion">
+                    <button type="submit" id="btnIniciarSesionCredenciales">Iniciar Sesión</button>
+                    <i class="fa-solid fa-fingerprint huella-icono" id="huellaLoginCoordinador"></i>
+                    <button type="button" id="volver1" class="btn-regresar">Regresar</button>
                 </div>
             </form>
         </div>
         <div class="contenedor-alternar">
             <div class="alternar">
                 <div class="panel-alternar alternar-izquierda">
+                    <img src="/img/logo CkeckMyLife.png" alt="LogoCheckMyLife" width="38%">
                     <h1>¡Bienvenido!</h1>
                     <p>Ingresa tus datos personales para usar todas las funciones del sitio</p>
                     <button class="oculto" id="iniciarSesion">Iniciar Sesión</button>
                 </div>
                 <div class="panel-alternar alternar-derecha">
+                    <img src="/img/logo CkeckMyLife.png" alt="LogoCheckMyLife" width="38%">
                     <h1>¡Hola, Amigo!</h1>
                     <p>Regístrate con tus datos personales para usar todas las funciones del sitio</p>
                     <button class="oculto" id="registrarse">Registrarse</button>
@@ -57,9 +59,8 @@
             </div>
         </div>
     </div>
-<script type="module" src="../js/login.js"></script>
+
+    <script type="module" src="/js/loginCoordinador.js"></script>
 </body>
 
 </html>
-=======
->>>>>>> 735fc66356ed0f9810fcf89c66777ce2defc670b

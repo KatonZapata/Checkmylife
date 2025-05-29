@@ -30,6 +30,8 @@
     text-align: center;
 }
 
+
+
 .map-section h2,
 .camera-section h2 {
     color: var(--primary-color);
@@ -120,6 +122,32 @@
     font-size: 2em;
     background-color: rgba(0, 0, 0, 0.7);
 }
+
+.emergency-button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.energy-bar {
+  width: 200px;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#energy-fill {
+  height: 100%;
+  width: 100%;
+  background-color: green;
+  transition: width 1s linear;
+}
+
 
 .placeholder-video i {
     font-size: 3em;
