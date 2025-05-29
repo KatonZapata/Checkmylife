@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Botones regresar
-    const regresarBtns = document.querySelectorAll('.btn-regresar');
+    const regresarBtns = document.querySelectorAll('.btn-regresar , .btnregesar1');
     regresarBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             window.history.back();
