@@ -116,6 +116,42 @@ body {
     transform: translateX(-5px);
 }
 
+
+    .bienvenida {
+        font-size: 2.8rem;
+        margin-bottom: 20px;
+        animation: fadeInDown 1s ease-out;
+    }
+    .bienvenida span {
+        color: #00ffe1;
+        font-weight: bold;
+    }
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 999;
+    }     
+    .modal-contenido {
+        background-color: #e08316;
+        color: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        text-align: center;
+        min-width: 300px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+    .oculto {
+        display: none;
+    }
+
 @media (max-width: 500px) {
     .recover-container {
         padding: 30px 20px;
