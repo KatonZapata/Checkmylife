@@ -1,31 +1,35 @@
-// js/programacionRuta.js
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Establece el año actual en el footer
+document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('current-year').textContent = new Date().getFullYear();
 
-    // --- Lógica para añadir y eliminar filas de la tabla ---
+    const API_BASE_URL = 'http://localhost:3000/api';
     const addRowButton = document.querySelector('.add-row-button');
     const routeTableBody = document.querySelector('#routeTable tbody');
+    const routeForm = document.getElementById('routeForm');
 
-    addRowButton.addEventListener('click', function() {
+    // Agrega una nueva fila
+    addRowButton.addEventListener('click', async function () {
         const newRow = document.createElement('tr');
         newRow.innerHTML = `
-            <td><input type="text" name="nombre[]" required></td>
-            <td><input type="text" name="apellido[]" required></td>
-            <td><input type="text" name="placa[]" required></td>
+            <td><select class="selectConductores" name="nombre[]" required></select></td>
+            <td><input class="apellido" type="text" name="apellido[]" readonly required></td>
+            <td><select class="selectVehiculo" name="placa[]" required></select></td>
             <td><input type="text" name="origen[]" required></td>
             <td><input type="text" name="destino[]" required></td>
             <td><button type="button" class="remove-row-button"><i class="fas fa-trash-alt"></i></button></td>
         `;
         routeTableBody.appendChild(newRow);
+
+        const selectConductor = newRow.querySelector('.selectConductores');
+        const selectVehiculo = newRow.querySelector('.selectVehiculo');
+
+        await llenarSelectConductores(selectConductor);
+        await llenarSelectVehiculos(selectVehiculo);
     });
 
-    // Delegación de eventos para los botones de eliminar fila
-    routeTableBody.addEventListener('click', function(event) {
+    // Elimina filas
+    routeTableBody.addEventListener('click', function (event) {
         if (event.target.closest('.remove-row-button')) {
             const rowToRemove = event.target.closest('tr');
-            // Asegúrate de no eliminar la última fila si no quieres que el formulario quede vacío
             if (routeTableBody.rows.length > 1) {
                 rowToRemove.remove();
             } else {
@@ -34,89 +38,125 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // --- Conexión con el Backend para Asignación de Rutas ---
-    const API_BASE_URL = 'http://localhost:3000/api'; // URL de tu backend
-
-    const routeForm = document.getElementById('routeForm');
-
-    routeForm.addEventListener('submit', async function(event) {
-        event.preventDefault(); // Evita que el formulario se envíe de la forma tradicional
+    // Envío del formulario
+    routeForm.addEventListener('submit', async function (event) {
+        event.preventDefault();
 
         const rows = routeTableBody.querySelectorAll('tr');
         const assignments = [];
 
-        // Recorre cada fila de la tabla para recopilar los datos
         for (const row of rows) {
-            const nombre = row.querySelector('input[name="nombre[]"]').value;
-            const apellido = row.querySelector('input[name="apellido[]"]').value;
-            const placa = row.querySelector('input[name="placa[]"]').value;
+            const conductorId = row.querySelector('.selectConductores').value;
+            const apellido = row.querySelector('.apellido').value;
+            const vehiculoId = row.querySelector('.selectVehiculo').value;
             const origen = row.querySelector('input[name="origen[]"]').value;
             const destino = row.querySelector('input[name="destino[]"]').value;
 
-            // Validación básica
-            if (!nombre || !apellido || !placa || !origen || !destino) {
+            if (!conductorId || !apellido || !vehiculoId || !origen || !destino) {
                 alert('Por favor, completa todos los campos de cada ruta.');
-                return; // Detiene el envío si un campo está vacío
+                return;
             }
 
-            // Valores dummy para IDs (asumiendo que los IDs 1, 2, 3 existen para conductores/vehículos)
-            // y para las coordenadas/waypoints (simplemente usamos lat/lon de Bogotá y Medellín como ejemplo)
-            const driverId = Math.floor(Math.random() * 3) + 1; // Asigna un ID de conductor aleatorio entre 1 y 3
-            const vehicleId = Math.floor(Math.random() * 4) + 1; // Asigna un ID de vehículo aleatorio entre 1 y 4
-
-            const originLocation = { name: origen, lat: 6.2442, lon: -75.5812 }; // Coordenadas de Medellín
-            const destinationLocation = { name: destino, lat: 4.7110, lon: -74.0721 }; // Coordenadas de Bogotá
+            const originLocation = { name: origen, lat: 6.2442, lon: -75.5812 };
+            const destinationLocation = { name: destino, lat: 4.7110, lon: -74.0721 };
             const routeWaypoints = [[originLocation.lat, originLocation.lon], [destinationLocation.lat, destinationLocation.lon]];
 
-
             assignments.push({
-                driverId: driverId,
-                vehicleId: vehicleId,
+                driverId: parseInt(conductorId),
+                vehicleId: parseInt(vehiculoId),
                 routeOrigin: originLocation,
                 routeDestination: destinationLocation,
-                routeName: `Ruta de ${origen} a ${destino}`, // Un nombre de ruta simple
+                routeName: `Ruta de ${origen} a ${destino}`,
                 routeWaypoints: routeWaypoints,
                 timestamp: new Date().toISOString()
             });
         }
 
-        // Enviar cada asignación al backend
         let allSuccess = true;
         for (const assignment of assignments) {
             try {
                 const response = await fetch(`${API_BASE_URL}/asignar-ruta`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(assignment)
                 });
 
                 const data = await response.json();
-
-                if (response.ok && data.success) {
-                    console.log(`Asignación guardada para ${assignment.driverId} - ${assignment.vehicleId}:`, data.assignmentId);
-                } else {
+                if (!response.ok || !data.success) {
                     allSuccess = false;
-                    console.error(`Error al guardar la asignación para ${assignment.driverId} - ${assignment.vehicleId}:`, data.message || response.statusText);
                     alert(`Error al asignar la ruta de ${assignment.routeOrigin.name} a ${assignment.routeDestination.name}: ${data.message || 'Error desconocido.'}`);
                 }
             } catch (error) {
                 allSuccess = false;
-                console.error('Error de conexión al enviar asignación:', error);
                 alert(`Error de conexión al asignar la ruta de ${assignment.routeOrigin.name} a ${assignment.routeDestination.name}.`);
             }
         }
 
         if (allSuccess) {
             alert('¡Todas las rutas han sido asignadas y guardadas con éxito!');
-            routeForm.reset(); // Opcional: Limpiar el formulario
-            // Restablecer la tabla a una sola fila vacía
+            routeForm.reset();
             while (routeTableBody.rows.length > 1) {
                 routeTableBody.removeChild(routeTableBody.lastChild);
             }
-            const firstRowInputs = routeTableBody.querySelector('tr').querySelectorAll('input');
-            firstRowInputs.forEach(input => input.value = ''); // Limpiar la primera fila también
+            const firstRow = routeTableBody.querySelector('tr');
+            if (firstRow) {
+                firstRow.querySelectorAll('input').forEach(input => input.value = '');
+                firstRow.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
+            }
         }
     });
+
+    // Llenar conductores en un select
+    async function llenarSelectConductores(selectElement) {
+        try {
+            const response = await fetch(`${API_BASE_URL}/conductores`);
+            const conductores = await response.json();
+
+            selectElement.innerHTML = '<option value="">Seleccione</option>';
+            conductores.forEach(conductor => {
+                const option = document.createElement('option');
+                option.value = conductor.id;
+                option.textContent = `${conductor.name} ${conductor.apellido || ''}`;
+                option.setAttribute('data-apellido', conductor.apellido || '');
+                selectElement.appendChild(option);
+            });
+
+            // Evento de cambio para actualizar apellido
+            selectElement.addEventListener('change', function () {
+                const selected = this.options[this.selectedIndex];
+                const apellido = selected.getAttribute('data-apellido') || '';
+                const apellidoInput = this.closest('tr').querySelector('.apellido');
+                if (apellidoInput) apellidoInput.value = apellido;
+            });
+        } catch (error) {
+            console.error('Error al obtener conductores:', error);
+        }
+    }
+
+    // Llenar vehículos en un select
+    async function llenarSelectVehiculos(selectElement) {
+        try {
+            const response = await fetch(`${API_BASE_URL}/vehiculos`);
+            const vehiculos = await response.json();
+
+            selectElement.innerHTML = '<option value="">Seleccione</option>';
+            vehiculos.forEach(vehiculo => {
+                const option = document.createElement('option');
+                option.value = vehiculo.id;
+                option.textContent = vehiculo.placa;
+                selectElement.appendChild(option);
+            });
+        } catch (error) {
+            console.error('Error al obtener vehículos:', error);
+        }
+    }
+
+    // Inicializar fila base
+    const firstRow = routeTableBody.querySelector('tr');
+    if (firstRow) {
+        const selectConductor = firstRow.querySelector('.selectConductores');
+        const selectVehiculo = firstRow.querySelector('.selectVehiculo');
+        llenarSelectConductores(selectConductor);
+        llenarSelectVehiculos(selectVehiculo);
+    }
 });

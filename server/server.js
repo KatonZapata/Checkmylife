@@ -187,7 +187,7 @@ connectToDbAndCreateTables();
 app.get('/api/conductores', async (req, res) => {
     try {
         const [rows] = await connection.execute(`
-            SELECT c.id_conductor AS id, p.nombres AS name, p.celular AS phone
+            SELECT c.id_conductor AS id, p.nombres AS name, p.apellidos AS apellido
             FROM conductores c
             JOIN personas p ON c.id_persona = p.id_persona
         `);
@@ -202,7 +202,7 @@ app.get('/api/conductores', async (req, res) => {
 app.get('/api/vehiculos', async (req, res) => {
     try {
         const [rows] = await connection.execute(`
-            SELECT id_vehiculo AS id, placa AS name, marca
+            SELECT id_vehiculo AS id, placa AS placa , marca
             FROM vehiculos
         `);
         res.json(rows);
