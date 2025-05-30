@@ -318,3 +318,49 @@ app.listen(PORT, () => {
     console.log(`Servidor backend corriendo en http://localhost:${PORT}`);
     console.log('¡Asegúrate de que tu servidor MySQL esté en ejecución!');
 });
+
+// POST /api/conductores: Registrar un nuevo conductor
+app.post('/api/conductores', async (req, res) => {
+    const {
+        nombres,
+        apellidos,
+        documento,
+        celular,
+        usuario,
+        contrasena,
+        email,
+        licencia
+    } = req.body;
+
+    try {
+        const safe = v => v === undefined ? null : v;
+
+        // 1. Insertar en personas
+        const [personaResult] = await connection.execute(
+            `INSERT INTO personas (nombres, apellidos, documento, celular, usuario, contrasena, email)
+             VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            [
+                safe(nombres),
+                safe(apellidos),
+                safe(documento),
+                safe(celular),
+                safe(usuario),
+                safe(contrasena),
+                safe(email)
+            ]
+        );
+        const id_persona = personaResult.insertId;
+
+        // 2. Insertar en conductores
+        const [conductorResult] = await connection.execute(
+            `INSERT INTO conductores (id_conductor, id_persona, licencia)
+             VALUES (?, ?, ?)`,
+            [id_persona, id_persona, safe(licencia)]
+        );
+
+        res.json({ success: true, message: 'Conductor registrado exitosamente', id_conductor: id_persona });
+    } catch (err) {
+        console.error('Error al registrar conductor:', err);
+        res.status(500).json({ success: false, message: 'Error al registrar conductor', error: err.message });
+    }
+});

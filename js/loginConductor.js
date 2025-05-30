@@ -20,31 +20,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Registro de usuario
     if (formRegistro) {
-        formRegistro.addEventListener('submit', (e) => {
+        formRegistro.addEventListener('submit', async(e) => {
             e.preventDefault();
 
+            const API_BASE_URL = 'http://localhost:3000/api';
             const contrasena = document.getElementById('contrasena').value;
             const repitaContrasena = document.getElementById('repitaContrasena').value;
-
+              
             if (contrasena !== repitaContrasena) {
                 alert("Las contraseñas no coinciden");
                 return;
             }
 
-            const nuevoConductor = new Conductor({
+            const nuevoConductor ={
                 nombres: document.getElementById('nombres').value,
                 apellidos: document.getElementById('apellidos').value,
-                celular: document.getElementById('celular').value,
                 documento: document.getElementById('documento').value,
-                licencia: document.getElementById('licencia').value,
-                fechaVencimiento: document.getElementById('fechaVencimiento').value,
+                celular: document.getElementById('celular').value,              
                 usuario: document.getElementById('usuario').value,
                 contrasena: contrasena,
-                email: document.getElementById('correo').value
-            });
+                email: document.getElementById('correo').value,
+                licencia: document.getElementById('licencia').value // <-- AGREGA ESTA LÍNEA
+            };
 
-            console.log(nuevoConductor);
-            // Aquí puedes agregar lógica para guardar el usuario o mostrar un mensaje de éxito
+           try {
+                const response = await fetch(`${API_BASE_URL}/conductores`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(nuevoConductor)
+                });
+
+                alert('Enviando datos al servidor...${nuevoConductor.nombres} ${nuevoConductor.apellidos}`);');
+
+                const data = await response.json();
+                if (response.ok && data.success) {
+                    alert('Conductor registrado exitosamente');
+                    formRegistro.reset();
+                } else {
+                    alert('Error al registrar conductor: ' + (data.message || 'Error desconocido'));
+                }
+            } catch (error) {
+                alert('Error de conexión con el servidor');
+            }
+
         });
     }
 
