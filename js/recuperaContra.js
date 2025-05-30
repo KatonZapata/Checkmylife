@@ -4,9 +4,19 @@
         });
 
         document.getElementById('recoverForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Evita el envío del formulario por defecto
-            // Aquí puedes añadir la lógica para enviar los datos de recuperación
-            alert('Solicitud de recuperación enviada. Revisa tu correo/teléfono.');
-            // Idealmente, aquí se haría una llamada a una API
-            // Ejemplo: fetch('/api/recuperar-contrasena', { method: 'POST', body: new FormData(this) });
+            event.preventDefault(); 
+
+            document.getElementById("mensajeEnvioCorreo").textContent =
+            `Se ha enviado un codigo a tu correo`;
+    
+            document.getElementById("codigoModal").classList.remove("oculto");
+    
+            // Redirigir después de 3 segundos
+            setTimeout(() => {
+    
+            window.location.href = "/html/index.html";
+    
+            }, 4000);
         });
+
+
