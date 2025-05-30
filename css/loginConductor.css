@@ -1,5 +1,5 @@
 /* loginConductor.css */
-@import url('https://fonts.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
 * {
     margin: 0;
@@ -67,6 +67,7 @@ body {
     font-weight: 600;
     letter-spacing: 0.5px;
     text-transform: uppercase;
+    cursor: pointer; /* Añadido para consistencia */
 }
 
 
@@ -118,6 +119,62 @@ body {
 .contenedor-formulario.iniciar-sesion form a {
     display: none;
 }
+
+/* === REGLA CLAVE PARA OCULTAR LA HUELLA POR DEFECTO === */
+/* Esta clase debe aplicarse al div que envuelve el <span> y el <i> de la huella en tu HTML */
+.huella-oculta {
+    display: none;
+}
+/* === REGLA CLAVE PARA OCULTAR LA HUELLA POR DEFECTO === */
+.huella-oculta {
+    display: none; /* Oculta el elemento */
+}
+
+/* Cuando no tiene la clase huella-oculta, se muestra como flex para centrar su contenido */
+/* APLICA ESTE CAMBIO EN TU CSS */
+#huellaContainer:not(.huella-oculta) {
+    display: flex;
+    flex-direction: column;   /* Para que "Usa tu huella..." y el icono estén uno debajo del otro */
+    align-items: center;      /* Centra horizontalmente los elementos hijos (span e i) */
+    justify-content: center;  /* Centra verticalmente si el contenedor tiene más espacio */
+}
+/* ====================================================== */
+
+/* Estilos para el ícono de huella grande en el login de Conductor */
+.huella-icono.large-huella {
+    font-size: 120px; /* Tamaño grande para destacar */
+    margin: 40px 0; /* Espacio alrededor */
+    color: #f7931e; /* Color primario */
+    cursor: pointer; /* Indica que es interactuable */
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.huella-icono.large-huella:hover {
+    transform: scale(1.05); /* Ligero efecto al pasar el mouse */
+    color: #e08316;
+}
+
+/* Estilos para el botón de acción principal en el formulario de inicio de sesión (huella) */
+.btn-accion-huella {
+    background-color: #f7931e;
+    color: #fff;
+    font-size: 16px;
+    padding: 12px 40px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 250px;
+    margin: 20px auto; /* Esto centrará el botón y le dará un margen superior/inferior de 20px */
+}
+
+/* ... el resto de tu CSS ... */
+/* ====================================================== */
+
 
 /* Estilos para el ícono de huella grande en el login de Conductor */
 .huella-icono.large-huella {
@@ -177,7 +234,8 @@ body {
     transform: translateX(-50%); 
     width: auto;
     max-width: 150px; 
-    z-index: 10; }
+    z-index: 10; 
+}
 
 .contenedor .btn-regresar:hover {
     /* Mantenemos los mismos estilos que el estado normal para que no haya cambios al hover */
@@ -338,7 +396,7 @@ body {
     }
 
     /* Ajuste para el ícono de huella en móvil */
-    .huella-icono.large-huella {
+    .huella-icono .large-huella {
         font-size: 80px; /* Un poco más pequeño para móviles */
         margin: 20px 0;
     }
