@@ -50,21 +50,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Lógica para el registro de usuario
     if (formRegistro) {
-        formRegistro.addEventListener('submit', (e) => {
+        formRegistro.addEventListener('submit', async(e) => {
             e.preventDefault();
 
-            // Es buena práctica verificar si los elementos existen antes de acceder a su .value
-            const contrasenaInput = document.getElementById('contrasena');
-            const repitaContrasenaInput = document.getElementById('repitaContrasena');
-
-            if (!contrasenaInput || !repitaContrasenaInput) {
-                console.error("No se encontraron los campos de contraseña en el formulario de registro.");
-                return;
-            }
-
-            const contrasena = contrasenaInput.value;
-            const repitaContrasena = repitaContrasenaInput.value;
-
+            const API_BASE_URL = 'http://localhost:3000/api';
+            const contrasena = document.getElementById('contrasena').value;
+            const repitaContrasena = document.getElementById('repitaContrasena').value;
+              
             if (contrasena !== repitaContrasena) {
                 alert("Las contraseñas no coinciden");
                 return;
@@ -81,28 +73,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const email = document.getElementById('correo')?.value || '';
 
             const nuevoConductor = new Conductor({
-                nombres: nombres,
-                apellidos: apellidos,
-                celular: celular,
-                documento: documento,
-                licencia: licencia,
-                fechaVencimiento: fechaVencimiento,
-                usuario: usuario,
+                nombres: document.getElementById('nombres').value,
+                apellidos: document.getElementById('apellidos').value,
+                celular: document.getElementById('celular').value,
+                documento: document.getElementById('documento').value,
+                licencia: document.getElementById('licencia').value,
+                fechaVencimiento: document.getElementById('fechaVencimiento').value,
+                usuario: document.getElementById('usuario').value,
                 contrasena: contrasena,
-                email: email
+                email: document.getElementById('correo').value
             });
 
-            console.log("Nuevo conductor registrado:", nuevoConductor);
-            alert("Registro exitoso. Ahora puedes iniciar sesión.");
-            // Opcional: limpiar el formulario y volver a la vista de login
-            formRegistro.reset();
-            contenedor.classList.remove('activo'); // Vuelve a la vista de inicio de sesión
-            if (huellaContainer) {
-                huellaContainer.classList.add('huella-oculta'); // Oculta la huella al volver a la vista de login
-            }
-            if (btnActivarHuella) {
-                btnActivarHuella.style.display = 'block'; // Muestra el botón de activar huella
-            }
+            console.log(nuevoConductor);
+            // Aquí puedes agregar lógica para guardar el usuario o mostrar un mensaje de éxito
         });
     }
 
