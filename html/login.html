@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <title>Login</title>
+</head>
+
+<body>
+
+    <div class="contenedor" id="contenedor">
+        <div class="contenedor-formulario registrarse">
+            <form>
+                <h1>Crear Cuenta</h1>
+                <span>Usa tu correo para registrarte</span>
+                <input type="text" id="nombre" placeholder="Nombre" required>
+                <input type="text" id="apellido" placeholder="Apellidos" required>
+                <input type="tel" id="celular" placeholder="Telefono" required>
+                <input type="email" id="email" placeholder="Correo" required>
+                <input type="number" id="documento" placeholder="Numero de licencia" required>
+                <input type="date" id="fecha" placeholder="Fecha Vencimiento" required>
+                <input type="text" id="usuario" placeholder="Usuario" required>
+                <input type="password" id="contrasena" placeholder="Ingresa una contraseña" required>
+                <input type="password" id="repetirContrasena" placeholder="Repite la contraseña" required>
+                <button type="button" id="registro">Registrarse</button>
+            </form>
+        </div>
+        <div class="contenedor-formulario iniciar-sesion">
+            <form>
+                <h1>Iniciar Sesión</h1>
+                <span>Usa tu correo y contraseña</span>
+                <input type="text" placeholder="Usuario">
+                <input type="password" placeholder="Contraseña">
+                <a href="recuperarContra.html">¿Olvidaste tu Contraseña?</a>
+                <div class="acciones-sesion"> <button>Iniciar Sesión</button>
+                    <i class="fa-solid fa-fingerprint huella-icono"></i>
+                    <button type="button" id="regresar">Regresar</button>
+                </div>
+            </form>
+        </div>
+        <div class="contenedor-alternar">
+            <div class="alternar">
+                <div class="panel-alternar alternar-izquierda">
+                    <h1>¡Bienvenido!</h1>
+                    <p>Ingresa tus datos personales para usar todas las funciones del sitio</p>
+                    <button class="oculto" id="iniciarSesion">Iniciar Sesión</button>
+                </div>
+                <div class="panel-alternar alternar-derecha">
+                    <h1>¡Hola, Amigo!</h1>
+                    <p>Regístrate con tus datos personales para usar todas las funciones del sitio</p>
+                    <button class="oculto" id="registrarse">Registrarse</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<script type="module" src="../js/login.js"></script>
+</body>
+
+</html>
