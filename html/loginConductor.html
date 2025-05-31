@@ -32,12 +32,34 @@
         </div>
 
         <div class="contenedor-formulario iniciar-sesion">
-            <form id="formLoginConductor"> 
+            <form id="formLoginConductor">
                 <h1>Iniciar Sesión</h1>
-                <div id="huellaContainer" class="huella-oculta"> <span>Usa tu huella digital para ingresar</span>
+
+                <div id="inicialLoginContainer" class="inicial-login-visible">
+                    <p class="o-texto">Ingresa con tu huella digital</p>
+                    <button type="button" class="btn-accion-huella" id="btnActivarHuella">Ingresar con Huella</button>
+                    </div>
+
+
+                <div id="huellaContainer" class="huella-oculta">
+                    <span>Usa tu huella digital para ingresar</span>
                     <i class="fa-solid fa-fingerprint huella-icono large-huella" id="huellaLoginConductor"></i>
+                    <p class="o-texto">ó</p>
+                    <button type="button" class="btn-accion-secundaria" id="btnVolverCredencialesDesdeHuella">Ingresar con Usuario</button>
                 </div>
-                <button type="button" class="btn-accion-huella" id="btnActivarHuella">Ingresar con Huella</button>
+
+                <div id="credencialesContainer" class="credenciales-ocultas">
+                    <span>Usa tu usuario y contraseña</span>
+                    <input type="text" placeholder="Usuario" id="loginUsuario">
+                    <input type="password" placeholder="Contraseña" id="loginContrasena">
+                    <a href="recuperarContra.html">¿Olvidaste tu Contraseña?</a>
+                    <div class="acciones-sesion">
+                        <button type="submit" id="btnIniciarSesionCredenciales">Iniciar Sesión</button>
+                                            <p class="o-texto">ó</p>
+                        <button type="button" class="btn-accion-secundaria" id="btnVolverHuellaDesdeCredenciales">Ingresar con Huella</button>
+                    </div>
+                </div>
+
                 <button type="button" class="btn-regresar" id="btn_regresar1">Regresar</button>
             </form>
         </div>
@@ -47,7 +69,7 @@
                 <div class="panel-alternar alternar-izquierda">
                     <img src="/img/logo CkeckMyLife.png" alt="LogoCheckMyLife" width="38%">
                     <h1>¡Bienvenido!</h1>
-                    <p>Ingresa con tu huella digital para acceder a tu cuenta.</p>
+                    <p>Ingresa con tu huella digital o usuario y contraseña para acceder a tu cuenta.</p>
                     <button class="oculto" id="iniciarSesion">Iniciar Sesión</button>
                 </div>
                 <div class="panel-alternar alternar-derecha">
@@ -60,6 +82,7 @@
         </div>
     </div>
 
-    <script src="/js/loginConductor.js"></script>
+    <script type="module" src="/js/loginConductor.js"></script>
 </body>
+
 </html>

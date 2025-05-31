@@ -67,9 +67,14 @@ body {
     font-weight: 600;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    cursor: pointer; /* Añadido para consistencia */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Añadida transición */
 }
 
+.contenedor button:hover { /* Añadido hover para botones principales */
+    background-color: #e08316;
+    transform: translateY(-2px);
+}
 
 .contenedor button.oculto {
     background-color: transparent;
@@ -86,17 +91,109 @@ body {
     background-color: #fff;
     display: flex;
     align-items: center;
-    justify-content: center; /* Centra el contenido verticalmente */
+    justify-content: center;
     flex-direction: column;
     padding: 25px 40px 15px;
     height: 100%;
     box-sizing: border-box;
-    position: relative; /* Esencial para el posicionamiento absoluto del botón de regresar */
-    padding-bottom: 80px; /* Espacio para el botón de regresar al final */
+    position: relative;
+    padding-bottom: 80px;
 }
 
 /* INPUTS: Solo los inputs del formulario de registro deben ser visibles */
-.contenedor .registrarse input { /* Los inputs del formulario de registro */
+.contenedor .registrarse input {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    margin: 4px 0;
+    padding: 8px 15px;
+    font-size: 13px;
+    border-radius: 8px;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    display: block;
+}
+
+.contenedor .registrarse input:focus {
+    border-color: #f7931e;
+    box-shadow: 0 0 5px rgba(247, 147, 30, 0.5);
+}
+
+
+/* --- NUEVAS CLASES PARA GESTIONAR LA VISIBILIDAD EN EL FORMULARIO DE INICIO DE SESIÓN --- */
+
+/* Por defecto, solo se muestra el contenedor inicial con los botones */
+.contenedor-formulario.iniciar-sesion #inicialLoginContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%; /* Para que el botón de huella ocupe su max-width */
+}
+
+/* Oculta los contenedores de huella y credenciales por defecto */
+.huella-oculta,
+.credenciales-ocultas {
+    display: none;
+}
+
+/* Estilos para cuando se muestran (pueden ser flex, block, etc. según el diseño deseado) */
+#huellaContainer:not(.huella-oculta),
+#credencialesContainer:not(.credenciales-ocultas) {
+    display: flex; /* O block, grid, etc. según cómo quieras que se organicen sus hijos */
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* Estilo para el separador "o" */
+.o-texto {
+    margin: 15px 0;
+    color: #666;
+    font-weight: 500;
+}
+
+/* Estilos para el botón de acción principal en el formulario de inicio de sesión (Ingresar con Huella / Iniciar Sesión con Usuario) */
+.btn-accion-huella {
+    background-color: #f7931e;
+    color: #fff;
+    font-size: 16px;
+    padding: 12px 40px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 250px;
+    margin: 10px auto; /* Centra el botón verticalmente */
+}
+
+/* Estilos para el botón de acción secundaria (ej: "Ingresar con Usuario/Contraseña" desde huella) */
+.btn-accion-secundaria {
+    background-color: #6c757d; /* Un color secundario */
+    color: #fff;
+    font-size: 11px;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 15px; /* Margen superior para separarlo */
+    max-width: 200px;
+}
+
+.btn-accion-secundaria:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
+
+/* Ajustes para inputs dentro de credencialesContainer */
+#credencialesContainer input {
     background-color: #f0f0f0;
     border: 1px solid #ccc;
     margin: 4px 0;
@@ -109,141 +206,66 @@ body {
     display: block; /* Asegura que sean visibles */
 }
 
-.contenedor .registrarse input:focus {
+#credencialesContainer input:focus {
     border-color: #f7931e;
     box-shadow: 0 0 5px rgba(247, 147, 30, 0.5);
 }
 
-/* Ocultar inputs y enlaces en el formulario de inicio de sesión */
-.contenedor-formulario.iniciar-sesion form input,
-.contenedor-formulario.iniciar-sesion form a {
-    display: none;
-}
-
-/* === REGLA CLAVE PARA OCULTAR LA HUELLA POR DEFECTO === */
-/* Esta clase debe aplicarse al div que envuelve el <span> y el <i> de la huella en tu HTML */
-.huella-oculta {
-    display: none;
-}
-/* === REGLA CLAVE PARA OCULTAR LA HUELLA POR DEFECTO === */
-.huella-oculta {
-    display: none; /* Oculta el elemento */
-}
-
-/* Cuando no tiene la clase huella-oculta, se muestra como flex para centrar su contenido */
-/* APLICA ESTE CAMBIO EN TU CSS */
-#huellaContainer:not(.huella-oculta) {
+#credencialesContainer .acciones-sesion {
     display: flex;
-    flex-direction: column;   /* Para que "Usa tu huella..." y el icono estén uno debajo del otro */
-    align-items: center;      /* Centra horizontalmente los elementos hijos (span e i) */
-    justify-content: center;  /* Centra verticalmente si el contenedor tiene más espacio */
+    flex-direction: column; /* Organiza los botones verticalmente */
+    align-items: center;
+    width: 100%;
+    margin-top: 15px;
 }
-/* ====================================================== */
+#credencialesContainer .acciones-sesion button {
+    margin-bottom: 10px; /* Espacio entre los botones */
+}
 
 /* Estilos para el ícono de huella grande en el login de Conductor */
 .huella-icono.large-huella {
-    font-size: 120px; /* Tamaño grande para destacar */
-    margin: 40px 0; /* Espacio alrededor */
-    color: #f7931e; /* Color primario */
-    cursor: pointer; /* Indica que es interactuable */
+    font-size: 120px;
+    margin: 40px 0;
+    color: #f7931e;
+    cursor: pointer;
     transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .huella-icono.large-huella:hover {
-    transform: scale(1.05); /* Ligero efecto al pasar el mouse */
+    transform: scale(1.05);
     color: #e08316;
-}
-
-/* Estilos para el botón de acción principal en el formulario de inicio de sesión (huella) */
-.btn-accion-huella {
-    background-color: #f7931e;
-    color: #fff;
-    font-size: 16px;
-    padding: 12px 40px;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    width: 100%;
-    max-width: 250px;
-    margin: 20px auto; /* Esto centrará el botón y le dará un margen superior/inferior de 20px */
-}
-
-/* ... el resto de tu CSS ... */
-/* ====================================================== */
-
-
-/* Estilos para el ícono de huella grande en el login de Conductor */
-.huella-icono.large-huella {
-    font-size: 120px; /* Tamaño grande para destacar */
-    margin: 40px 0; /* Espacio alrededor */
-    color: #f7931e; /* Color primario */
-    cursor: pointer; /* Indica que es interactuable */
-    transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.huella-icono.large-huella:hover {
-    transform: scale(1.05); /* Ligero efecto al pasar el mouse */
-    color: #e08316;
-}
-
-/* Estilos para el botón de acción principal en el formulario de inicio de sesión (huella) */
-.btn-accion-huella {
-    background-color: #f7931e;
-    color: #fff;
-    font-size: 16px;
-    padding: 12px 40px;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    width: 100%;
-    max-width: 250px;
-    margin-top: 20px;
-}
-
-.btn-accion-huella:hover {
-    background-color: #e08316;
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* Estilos para los botones "Regresar" (sin animación ni cambio de color al hover) */
 .contenedor .btn-regresar {
-    background-color: #fff; /* Fondo blanco */
-    border: 1px solid #6c757d; /* Borde gris */
-    color: #6c757d; 
+    background-color: #fff;
+    border: 1px solid #6c757d;
+    color: #6c757d;
     font-size: 11px;
     padding: 8px 20px;
-    border-radius: 8px; 
+    border-radius: 8px;
     font-weight: 600;
     letter-spacing: 0.5px;
     text-transform: uppercase;
     cursor: pointer;
     white-space: nowrap;
-    
+
     position: absolute;
     bottom: 15px;
     left: 50%;
-    transform: translateX(-50%); 
+    transform: translateX(-50%);
     width: auto;
-    max-width: 150px; 
-    z-index: 10; 
+    max-width: 150px;
+    z-index: 10;
+    transition: none; /* Desactivar transiciones para que no haya hover effect */
 }
 
 .contenedor .btn-regresar:hover {
-    /* Mantenemos los mismos estilos que el estado normal para que no haya cambios al hover */
     background-color: #fff;
     border: 1px solid #6c757d;
     color: #6c757d;
-    transform: translateX(-50%); /* Asegura que se mantenga centrado sin translateY */
-    cursor: default; /* Opcional: Cambia el cursor a default para indicar que no hay interacción visual adicional */
+    transform: translateX(-50%); /* Asegura que se mantenga centrado */
+    cursor: pointer; /* Mantener cursor de pointer si es interactuable */
 }
 
 /* El resto de tu CSS para el contenedor principal y el panel alternar se mantiene igual */
@@ -396,8 +418,8 @@ body {
     }
 
     /* Ajuste para el ícono de huella en móvil */
-    .huella-icono .large-huella {
-        font-size: 80px; /* Un poco más pequeño para móviles */
+    .huella-icono .large-huella { /* Corregido: .huella-icono.large-huella */
+        font-size: 80px;
         margin: 20px 0;
     }
 
@@ -505,18 +527,17 @@ body {
     .contenedor form {
         justify-content: flex-start;
         padding-top: 20px;
-        padding-bottom: 60px; /* Asegura espacio para el botón de regresar */
+        padding-bottom: 60px;
     }
 
-    /* Estilos para el botón "Regresar" en móviles */
-    .btn-regresar { /* Aseguramos que se aplique correctamente en móvil */
+    .btn-regresar {
         font-size: 9px;
         padding: 5px 10px;
-        bottom: 10px; /* Ajuste para móvil */
+        bottom: 10px;
         left: 50%;
         transform: translateX(-50%);
-        margin-top: 0; /* Anulamos posibles márgenes superiores del flexbox */
-        flex-basis: auto; /* Para que no ocupe todo el ancho si no es necesario */
-        order: auto; /* Restaurar el orden normal si fue alterado */
+        margin-top: 0;
+        flex-basis: auto;
+        order: auto;
     }
 }
