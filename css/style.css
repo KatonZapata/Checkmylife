@@ -1,11 +1,11 @@
 /* Variables CSS para colores */
 :root {
-    --primary-color: #565a5f; /* Azul oscuro para elementos principales */
-    --secondary-color: #ceb00a; /* Azul vibrante para acentos */
+    --primary-color: #121213; /* Azul oscuro para elementos principales */
+    --secondary-color: #f7931e; /* Azul vibrante para acentos */
     --accent-color: hsl(134, 61%, 41%); /* Verde para acciones positivas */
     --text-color: #333;
     --light-gray: #f8f9fa;
-    --dark-gray: #6c757d;
+    --dark-gray: #171718;
     --border-color: #dee2e6;
     --shadow-color: rgba(0, 0, 0, 0.1);
 }
@@ -23,7 +23,7 @@ body {
 /* Encabezado */
 header {
     background-color: var(--primary-color);
-    color: rgb(197, 168, 6);
+    color: rgb(247, 147, 30);
     padding: 15px 30px;
     display: flex;
     justify-content: space-between;
@@ -39,7 +39,7 @@ header {
 .logo {
     height: 100px;
     margin-right: 15px;
-    border-radius: 50%;
+    border-radius: 25%;
     border: 2px solid white;
 }
 
@@ -167,7 +167,7 @@ main {
 }
 
 .main-button:hover {
-    background-color: #004085;
+    background-color: #f7931e;
     transform: translateY(-3px);
 }
 
