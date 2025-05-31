@@ -1,7 +1,5 @@
-import { Conductor } from "/js/conductor.js";
-
 document.addEventListener('DOMContentLoaded', () => {
-    const contenedor = document.getElementById('contenedor');
+        const contenedor = document.getElementById('contenedor');
     const btnMostrarRegistro = document.getElementById('mostrarRegistro'); // Botón "Registrarse" del panel derecho
     const btnMostrarLogin = document.getElementById('iniciarSesion');     // Botón "Iniciar Sesión" del panel izquierdo
     const formRegistro = document.getElementById('formRegistroConductor');
@@ -48,50 +46,71 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Lógica para el registro de usuario
+    // Registro de usuario
     if (formRegistro) {
-        formRegistro.addEventListener('submit', async(e) => {
+        formRegistro.addEventListener('submit', async (e) => {
             e.preventDefault();
 
             const API_BASE_URL = 'http://localhost:3000/api';
-            const contrasena = document.getElementById('contrasena').value;
-            const repitaContrasena = document.getElementById('repitaContrasena').value;
-              
+            const documento = document.getElementById('documento').value;
+    const usuario = document.getElementById('usuario').value;
+    const contrasena = document.getElementById('contrasena').value;
+    const repitaContrasena = document.getElementById('repitaContrasena').value;
+
             if (contrasena !== repitaContrasena) {
                 alert("Las contraseñas no coinciden");
                 return;
             }
 
-            // Asegurarse de que todos los campos de input existan
-            const nombres = document.getElementById('nombres')?.value || '';
-            const apellidos = document.getElementById('apellidos')?.value || '';
-            const celular = document.getElementById('celular')?.value || '';
-            const documento = document.getElementById('documento')?.value || '';
-            const licencia = document.getElementById('licencia')?.value || '';
-            const fechaVencimiento = document.getElementById('fechaVencimiento')?.value || '';
-            const usuario = document.getElementById('usuario')?.value || '';
-            const email = document.getElementById('correo')?.value || '';
+            try {
+                const response = await fetch(`${API_BASE_URL}/conductores`);
+                const conductores = await response.json();
 
-            const nuevoConductor = new Conductor({
+                const existe = conductores.some(c => c.documento === documento || c.usuario === usuario);
+                if (existe) {
+                    alert('Ya existe un conductor con ese documento o usuario.');
+                    return;
+                }
+            } catch (error) {
+                alert('No se pudo verificar si el conductor existe. Intenta de nuevo.');
+                return;
+            }
+
+
+            const nuevoConductor = {
                 nombres: document.getElementById('nombres').value,
                 apellidos: document.getElementById('apellidos').value,
-                celular: document.getElementById('celular').value,
                 documento: document.getElementById('documento').value,
-                licencia: document.getElementById('licencia').value,
-                fechaVencimiento: document.getElementById('fechaVencimiento').value,
+                celular: document.getElementById('celular').value,
                 usuario: document.getElementById('usuario').value,
                 contrasena: contrasena,
-                email: document.getElementById('correo').value
-            });
+                licencia: document.getElementById('licencia').value // <-- Asegúrate de tener este input en tu HTML
+            };
 
-            console.log(nuevoConductor);
-            // Aquí puedes agregar lógica para guardar el usuario o mostrar un mensaje de éxito
+            try {
+                const response = await fetch(`${API_BASE_URL}/conductores`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(nuevoConductor)
+                });
+
+                alert(`Enviando datos al servidor... ${nuevoConductor.nombres} ${nuevoConductor.apellidos}`);
+
+                const data = await response.json();
+                if (response.ok && data.success) {
+                    alert('Conductor registrado exitosamente');
+                    formRegistro.reset();
+                } else {
+                    alert('Error al registrar conductor: ' + (data.message || 'Error desconocido'));
+                }
+            } catch (error) {
+                alert('Error de conexión con el servidor');
+            }
         });
     }
-
-    // Lógica para los botones de regresar
-    // Corregí la selección, ya que en tu HTML original uno es 'btn-regresar' y el otro 'btn_regresar1'
-    const regresarBtns = document.querySelectorAll('#btn-regresar, #btn_regresar1');
+const regresarBtns = document.querySelectorAll('#btn-regresar, #btn_regresar1');
     regresarBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             window.history.back();

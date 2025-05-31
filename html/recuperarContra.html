@@ -11,19 +11,20 @@
     <div class="recover-container">
         <button type="button" class="btn-back" id="volver"><i class="fas fa-arrow-left"></i></button>
         <h1>Recuperar Contraseña</h1>
-        <p>Por favor, ingresa tu usuario, teléfono y correo electrónico para ayudarte a recuperar tu contraseña.</p>
+        <p>Por favor, ingresa tu correo electrónico para ayudarte a recuperar tu contraseña.</p>
         <form id="recoverForm">
-            <label for="usuario">Usuario:</label>
-            <input type="text" id="usuario" name="usuario" placeholder="Tu nombre de usuario" required>
-
-            <label for="telefono">Teléfono:</label>
-            <input type="tel" id="telefono" name="telefono" placeholder="Tu número de teléfono" required>
 
             <label for="correo">Correo Electrónico:</label>
             <input type="email" id="correo" name="correo" placeholder="Tu correo electrónico" required>
 
             <button type="submit">Enviar Solicitud</button>
         </form>
+    </div>
+    <div id="codigoModal" class="modal oculto">
+        <div class="modal-contenido">
+        <h3>¡Codigo de Verificación!</h3>
+        <p id="mensajeEnvioCorreo"></p>
+      </div>
     </div>
 
     <script src="/js/recuperaContra.js"></script>
