@@ -84,7 +84,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 celular: document.getElementById('celular').value,
                 usuario: document.getElementById('usuario').value,
                 contrasena: contrasena,
-                licencia: document.getElementById('licencia').value // <-- Asegúrate de tener este input en tu HTML
+                licencia: document.getElementById('licencia').value,
+                email: document.getElementById('correo').value
+                 // <-- Asegúrate de tener este input en tu HTML
             };
 
             try {
