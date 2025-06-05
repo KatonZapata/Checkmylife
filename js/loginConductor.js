@@ -116,8 +116,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 celular: document.getElementById('celular').value,
                 usuario: document.getElementById('usuario').value,
                 contrasena: contrasena,
-                licencia: document.getElementById('licencia').value, // <-- Asegúrate de tener este input en tu HTML
-                correo: document.getElementById('correo').value // Asegúrate de incluir el correo
+                licencia: document.getElementById('licencia').value,
+                email: document.getElementById('correo').value
+
             };
 
             try {
