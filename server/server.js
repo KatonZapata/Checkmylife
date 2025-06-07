@@ -197,6 +197,20 @@ app.get('/api/conductores', async (req, res) => {
         res.status(500).json({ error: err.message }); // Envía un error 500 si algo falla
     }
 });
+// GET /api/coordinadores: Devuelve la lista de todos los coordinador con su nombre de persona
+app.get('/api/coordinadores', async (req, res) => {
+    try {
+        const [rows] = await connection.execute(`
+            SELECT c.id_coordinadores AS id, p.nombres AS name, p.apellidos AS apellido
+            FROM coordinadores c
+            JOIN personas p ON c.id_persona = p.id_persona
+        `);
+        res.json(rows); // Envía los datos como JSON al frontend
+    } catch (err) {
+        console.error('Error al obtener coordinadores:', err);
+        res.status(500).json({ error: err.message }); // Envía un error 500 si algo falla
+    }
+});
 
 // GET /api/vehiculos: Devuelve la lista de todos los vehículos con su placa
 app.get('/api/vehiculos', async (req, res) => {
@@ -313,6 +327,67 @@ app.get('/api/asignaciones/:vehicleId', async (req, res) => {
 });
 
 
+// ESTE ES EL ENDPOINT CLAVE PARA EL LOGIN DEL CONDUCTOR
+app.post('/api/loginConductor', async (req, res) => {
+    const { usuario, contrasena } = req.body;
+
+    if (!usuario || !contrasena) {
+        return res.status(400).json({ success: false, message: 'Usuario y contraseña son requeridos.' });
+    }
+
+    try {
+        const [rows] = await connection.execute(
+            `SELECT id_persona, usuario, contrasena, nombres, apellidos, email
+             FROM personas
+             WHERE usuario = ?`,
+            [usuario]
+        );
+
+        if (rows.length === 0) {
+            return res.status(401).json({ success: false, message: 'Usuario o contraseña incorrectos.' });
+        }
+
+        const user = rows[0];
+
+        if (user.contrasena === contrasena) {
+            const [conductorRows] = await connection.execute(
+                `SELECT id_conductor, licencia
+                 FROM conductores
+                 WHERE id_persona = ?`,
+                [user.id_persona]
+            );
+
+            if (conductorRows.length > 0) {
+                const conductor = conductorRows[0];
+                res.json({
+                    success: true,
+                    message: 'Login de conductor exitoso',
+                    user: {
+                        id_persona: user.id_persona,
+                        id_conductor: conductor.id_conductor,
+                        nombres: user.nombres,
+                        apellidos: user.apellidos,
+                        usuario: user.usuario,
+                        email: user.email,
+                        licencia: conductor.licencia
+                    }
+                });
+            } else {
+                return res.status(403).json({ success: false, message: 'El usuario no está registrado como conductor.' });
+            }
+
+        } else {
+            return res.status(401).json({ success: false, message: 'Usuario o contraseña incorrectos.' });
+        }
+    } catch (err) {
+        console.error('Error en el login:', err);
+        res.status(500).json({ success: false, message: 'Error interno del servidor.', error: err.message });
+    }
+});
+// ************************************************************
+// FIN DEL ENDPOINT DE LOGIN
+// ************************************************************
+
 // Iniciar el servidor Node.js para que empiece a escuchar solicitudes
 app.listen(PORT, () => {
     console.log(`Servidor backend corriendo en http://localhost:${PORT}`);
@@ -334,6 +409,17 @@ app.post('/api/conductores', async (req, res) => {
 
     try {
         const safe = v => v === undefined ? null : v;
+                // 1.1 Verificar si el usuario o documento ya existen ANTES de insertar en la tabla `personas`
+        // Esto evitará el error 500 por duplicados.
+        const [existingPersona] = await connection.execute(
+            `SELECT id_persona FROM personas WHERE documento = ? OR usuario = ?`,
+            [documento, usuario]
+        );
+
+        if (existingPersona.length > 0) {
+            // Si ya existe un usuario con ese documento o usuario, devuelve un error 409 Conflict
+            return res.status(409).json({ success: false, message: 'Ya existe un conductor con ese documento o nombre de usuario.' });
+        }
 
         // 1. Insertar en personas
         const [personaResult] = await connection.execute(
@@ -362,5 +448,130 @@ app.post('/api/conductores', async (req, res) => {
     } catch (err) {
         console.error('Error al registrar conductor:', err);
         res.status(500).json({ success: false, message: 'Error al registrar conductor', error: err.message });
+    }
+});
+
+/* -------------------------COORDINADOR-------------------------- */
+
+// ESTE ES EL ENDPOINT CLAVE PARA EL LOGIN DEL COORDINADOR
+app.post('/api/loginCoordinador', async (req, res) => {
+    const { usuario, contrasena } = req.body;
+
+    if (!usuario || !contrasena) {
+        return res.status(400).json({ success: false, message: 'Usuario y contraseña son requeridos.' });
+    }
+
+    try {
+        const [rows] = await connection.execute(
+            `SELECT id_persona, usuario, contrasena, nombres, apellidos, email
+             FROM personas
+             WHERE usuario = ?`,
+            [usuario]
+        );
+
+        if (rows.length === 0) {
+            return res.status(401).json({ success: false, message: 'Usuario o contraseña incorrectos.' });
+        }
+
+        const user = rows[0];
+
+        if (user.contrasena === contrasena) {
+            const [coordinadorRows] = await connection.execute(
+                `SELECT id_coordinador
+                 FROM coordinadores
+                 WHERE id_persona = ?`,
+                [user.id_persona]
+            );
+
+            if (coordinadorRows.length > 0) {
+                const coordinador = coordinadorRows[0];
+                res.json({
+                    success: true,
+                    message: 'Login de conductor exitoso',
+                    user: {
+                        id_persona: user.id_persona,
+                        id_coordinador: coordinador.id_coordinador,
+                        nombres: user.nombres,
+                        apellidos: user.apellidos,
+                        usuario: user.usuario,
+                        email: user.email,
+                    }
+                });
+            } else {
+                return res.status(403).json({ success: false, message: 'El usuario no está registrado como conductor.' });
+            }
+
+        } else {
+            return res.status(401).json({ success: false, message: 'Usuario o contraseña incorrectos.' });
+        }
+    } catch (err) {
+        console.error('Error en el login:', err);
+        res.status(500).json({ success: false, message: 'Error interno del servidor.', error: err.message });
+    }
+});
+// ************************************************************
+// FIN DEL ENDPOINT DE LOGIN
+// ************************************************************
+
+// Iniciar el servidor Node.js para que empiece a escuchar solicitudes
+app.listen(PORT, () => {
+    console.log(`Servidor backend corriendo en http://localhost:${PORT}`);
+    console.log('¡Asegúrate de que tu servidor MySQL esté en ejecución!');
+});
+
+
+// POST /api/coordinadores: Registrar un nuevo coordinador
+app.post('/api/coordinadores', async (req, res) => {
+    const {
+        nombres,
+        apellidos,
+        documento,
+        celular,
+        email,
+        usuario,
+        contrasena
+    } = req.body;
+
+    try {
+        const safe = v => v === undefined ? null : v;
+        
+        // 1.1. Verificar si el usuario o documento ya existen ANTES de insertar
+        const [existingUser] = await connection.execute(
+            `SELECT id_persona FROM personas WHERE documento = ? OR usuario = ?`,
+            [documento, usuario]
+        );
+
+        if (existingUser.length > 0) {
+            // Si ya existe un usuario con ese documento o usuario, devuelve un error 409 Conflict
+            return res.status(409).json({ success: false, message: 'Ya existe un usuario con ese documento o nombre de usuario.' });
+        }
+
+        // 1. Insertar en personas
+        const [personaResult] = await connection.execute(
+            `INSERT INTO personas (nombres, apellidos, documento, celular, usuario, contrasena, email)
+             VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            [
+                safe(nombres),
+                safe(apellidos),
+                safe(documento),
+                safe(celular),
+                safe(usuario),
+                safe(contrasena),
+                safe(email)
+            ]
+        );
+        const id_persona = personaResult.insertId;
+
+        // 2. Insertar en coordinadores
+        const [coordinadorResult] = await connection.execute(
+            `INSERT INTO coordinadores (id_coordinador, id_persona)
+             VALUES (?, ? )`,
+            [id_persona, id_persona]
+        );
+
+        res.json({ success: true, message: 'Coordinador registrado exitosamente', id_coordinador: id_persona });
+    } catch (err) {
+        console.error('Error al registrar coordinador:', err);
+        res.status(500).json({ success: false, message: 'Error al registrar coordinador', error: err.message });
     }
 });

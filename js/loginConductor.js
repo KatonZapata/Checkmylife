@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnMostrarLogin = document.getElementById('iniciarSesion');     // Botón "Iniciar Sesión" del panel izquierdo
     const formRegistro = document.getElementById('formRegistroConductor');
 
+    const formLoginConductor = document.getElementById('formLoginConductor'); // formLoginConductor es ahora el único formulario para el login con credenciales
+
     // REFERENCIAS A LOS ELEMENTOS DEL FORMULARIO DE LOGIN
     const inicialLoginContainer = document.getElementById('inicialLoginContainer'); // Contenedor inicial con botones
     const huellaContainer = document.getElementById('huellaContainer');             // El div que contiene el texto y el ícono de la huella
@@ -94,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            try {
+/*             try {
                 const response = await fetch(`${API_BASE_URL}/conductores`);
                 const conductores = await response.json();
 
@@ -107,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('No se pudo verificar si el conductor existe. Intenta de nuevo.');
                 return;
             }
-
+ */
 
             const nuevoConductor = {
                 nombres: document.getElementById('nombres').value,
@@ -144,6 +146,54 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+    //Inicio de sesion
+
+    if (formLoginConductor) { // formLoginConductor es ahora el formulario de login con credenciales
+        formLoginConductor.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const API_BASE_URL = 'http://localhost:3000/api';
+            // Obtener los valores del usuario y contraseña de los inputs del formulario
+            const usuario = document.getElementById('loginUsuario').value;
+            const contrasena = document.getElementById('loginContrasena').value;
+
+            if (!usuario || !contrasena) {
+                alert('Por favor, ingresa tu usuario y contraseña.');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/loginConductor`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ usuario, contrasena })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert('Login exitoso: ' + data.message);
+                    console.log('Datos del usuario logueado:', data.user);
+                    localStorage.setItem('currentUser', JSON.stringify(data.user));
+
+                    window.location.href = '../html/programacionRuta.html'; // Cambia esta URL
+                } else {
+                    alert('Error en el login: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Error al intentar iniciar sesión:', error);
+                alert('Hubo un problema de conexión al intentar iniciar sesión. Inténtalo de nuevo más tarde.');
+            }
+        });
+    } else {
+        console.warn('El formulario de inicio de sesión con ID "formLoginConductor" no se encontró. Asegúrate de que tu HTML lo tenga.');
+    }
+    // ************************************************************
+    // FIN DE LA LÓGICA DE LOGIN
+    // ************************************************************
+
 
     // Botones de "Regresar"
     const regresarBtns = document.querySelectorAll('#btn-regresar, #btn_regresar1');
