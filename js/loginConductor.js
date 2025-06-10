@@ -1,3 +1,6 @@
+import { Conductor } from "./conductor.js";
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const contenedor = document.getElementById('contenedor');
     const btnMostrarRegistro = document.getElementById('mostrarRegistro'); // Botón "Registrarse" del panel derecho
@@ -15,7 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnMostrarLoginCredenciales = document.getElementById('btnMostrarLoginCredenciales'); // Botón "Iniciar Sesión con Usuario" (desde la pantalla inicial de login)
     const btnVolverCredencialesDesdeHuella = document.getElementById('btnVolverCredencialesDesdeHuella'); // Botón para volver a credenciales desde huella
     const btnVolverHuellaDesdeCredenciales = document.getElementById('btnVolverHuellaDesdeCredenciales'); // Botón para volver a huella desde credenciales
-
+    const API_BASE_URL = 'http://localhost:3000/api';
+    
     // Lógica para alternar formularios (Registrarse y Iniciar Sesión)
     if (btnMostrarRegistro && contenedor) {
         btnMostrarRegistro.addEventListener('click', () => {
@@ -85,54 +89,41 @@ document.addEventListener('DOMContentLoaded', () => {
         formRegistro.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const API_BASE_URL = 'http://localhost:3000/api';
-            const documento = document.getElementById('documento').value;
-            const usuario = document.getElementById('usuario').value;
-            const contrasena = document.getElementById('contrasena').value;
-            const repitaContrasena = document.getElementById('repitaContrasena').value;
-
-            if (contrasena !== repitaContrasena) {
-                alert("Las contraseñas no coinciden");
+            const nuevoConductor = new Conductor();
+            
+            nuevoConductor.nombres = document.getElementById('nombres').value;
+            nuevoConductor.apellidos = document.getElementById('apellidos').value;   
+            nuevoConductor.celular = document.getElementById('celular').value;
+            nuevoConductor.documento = document.getElementById('documento').value;
+            nuevoConductor.usuario = document.getElementById('usuario').value;
+            nuevoConductor.contrasena = document.getElementById('contrasena').value;
+            nuevoConductor.email = document.getElementById('correo').value;
+            nuevoConductor.licencia = document.getElementById('licencia').value;
+            let repitaContrasena = document.getElementById('repitaContrasena').value;
+                  
+            if (nuevoConductor.contrasena !== repitaContrasena) {
+                nuevoConductor.claveErrada("error",3000);
                 return;
             }
-
-/*             try {
-                const response = await fetch(`${API_BASE_URL}/conductores`);
-                const conductores = await response.json();
-
-                const existe = conductores.some(c => c.documento === documento || c.usuario === usuario);
-                if (existe) {
-                    alert('Ya existe un conductor con ese documento o usuario.');
-                    return;
-                }
-            } catch (error) {
-                alert('No se pudo verificar si el conductor existe. Intenta de nuevo.');
-                return;
-            }
- */
-
-            const nuevoConductor = {
-                nombres: document.getElementById('nombres').value,
-                apellidos: document.getElementById('apellidos').value,
-                documento: document.getElementById('documento').value,
-                celular: document.getElementById('celular').value,
-                usuario: document.getElementById('usuario').value,
-                contrasena: contrasena,
-                licencia: document.getElementById('licencia').value,
-                email: document.getElementById('correo').value
-
-            };
-
             try {
                 const response = await fetch(`${API_BASE_URL}/conductores`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(nuevoConductor)
+                    body: JSON.stringify({
+                    nombres: nuevoConductor.nombres,
+                    apellidos: nuevoConductor.apellidos,
+                    celular: nuevoConductor.celular,
+                    documento: nuevoConductor.documento,
+                    usuario: nuevoConductor.usuario,
+                    contrasena: nuevoConductor.contrasena,
+                    email: nuevoConductor.email,
+                    licencia: nuevoConductor.licencia,
+                })
                 });
 
-                alert(`Enviando datos al servidor... ${nuevoConductor.nombres} ${nuevoConductor.apellidos}`);
+                alert(`Enviando datos al servidor... de ${nuevoConductor.nombres} ${nuevoConductor.apellidos}`);
 
                 const data = await response.json();
                 if (response.ok && data.success) {
@@ -146,18 +137,22 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+
     //Inicio de sesion
 
     if (formLoginConductor) { // formLoginConductor es ahora el formulario de login con credenciales
         formLoginConductor.addEventListener('submit', async (event) => {
             event.preventDefault();
 
-            const API_BASE_URL = 'http://localhost:3000/api';
+           
             // Obtener los valores del usuario y contraseña de los inputs del formulario
-            const usuario = document.getElementById('loginUsuario').value;
-            const contrasena = document.getElementById('loginContrasena').value;
 
-            if (!usuario || !contrasena) {
+            const nuevoConductor = new Conductor();
+            nuevoConductor.usuario = document.getElementById('loginUsuario').value;
+            nuevoConductor.contrasena = document.getElementById('loginContrasena').value;
+
+            if (!nuevoConductor.usuario || !nuevoConductor.contrasena) {
                 alert('Por favor, ingresa tu usuario y contraseña.');
                 return;
             }
@@ -168,17 +163,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ usuario, contrasena })
+                    body: JSON.stringify({usuario:nuevoConductor.usuario ,contrasena:nuevoConductor.contrasena} )
                 });
 
                 const data = await response.json();
-
+                nuevoConductor.nombres = data.user.nombres; // Asignar nombres del usuario logueado
+                nuevoConductor.apellidos = data.user.apellidos;
+                nuevoConductor.usuario = data.user.usuario;
+                nuevoConductor.email = data.user.email; // Asignar apellidos del usuario logueado
                 if (data.success) {
-                    alert('Login exitoso: ' + data.message);
+                    nuevoConductor.mensajelogin("exito",3000);
                     console.log('Datos del usuario logueado:', data.user);
                     localStorage.setItem('currentUser', JSON.stringify(data.user));
 
-                    window.location.href = '../html/programacionRuta.html'; // Cambia esta URL
+                    setTimeout(() => {
+                    window.location.href = '../html/programacionRuta.html';
+                     }, 3000); // Cambia esta URL
                 } else {
                     alert('Error en el login: ' + data.message);
                 }

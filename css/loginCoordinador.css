@@ -194,6 +194,30 @@ body {
     z-index: 5;
     animation: mover 0.6s;
 }
+.mensaje {
+  display: none;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #444;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  z-index: 9999;
+  font-size: 1rem;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Colores según tipo */
+.mensaje.exito {
+  background-color: #16712c;
+}
+
+.mensaje.error {
+  background-color: #dc3545;
+}
 
 @keyframes mover {
     0%, 49.99% {
