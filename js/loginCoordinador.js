@@ -1,4 +1,7 @@
-/* import { coordinador } from "/js/coordinador.js"; */
+import { Coordinador } from "./coordinador.js";
+const nuevoCoord = new Coordinador();
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const contenedor = document.getElementById('contenedor');
     const formRegistro = document.getElementById('formRegistroCoordinador');
@@ -7,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const botonRegistrarse = document.getElementById('registrarse');
     const btnVolver = document.getElementById('volver');
     const btnVolver1 = document.getElementById('volver1');
+    const API_BASE_URL = 'http://localhost:3000/api';
 
     // Alternar a formulario de registro
     if (botonRegistrarse) {
@@ -28,41 +32,20 @@ document.addEventListener('DOMContentLoaded', () => {
         formRegistro.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const API_BASE_URL = 'http://localhost:3000/api';
-            const documento = document.getElementById('documento').value;
-            const usuario = document.getElementById('usuario').value;
-            const contrasena = document.getElementById('contrasena').value;
-            const repitaContrasena = document.getElementById('repitaContrasena').value;
+            const nuevoCoord1 = new Coordinador();
+            nuevoCoord1.nombres = document.getElementById('nombres').value;
+            nuevoCoord1.apellidos = document.getElementById('apellidos').value;        
+            nuevoCoord1.celular = document.getElementById('celular').value;
+            nuevoCoord1.documento = document.getElementById('documento').value;
+            nuevoCoord1.usuario = document.getElementById('usuario').value;
+            nuevoCoord1.contrasena = document.getElementById('contrasena').value;
+            nuevoCoord1.email = document.getElementById('correo').value;
+            const repitaContrasena = document.getElementById('repitaContrasena').value; //solo en el frontend
 
-            if (contrasena !== repitaContrasena) {
-                alert("Las contraseñas no coinciden");
+            if (nuevoCoord1.contrasena !== repitaContrasena) {
+                nuevoCoord.claveErrada("error")
                 return;
             }
-
-/*             try {
-                const response = await fetch(`${API_BASE_URL}/coordinadores`);
-                const coordinadores = await response.json();
-
-                const existe = coordinadores.some(c => c.documento === documento || c.usuario === usuario);
-                if (existe) {
-                    alert('Ya existe un coordinador con ese documento o usuario.');
-                    return;
-                }
-            } catch (error) {
-                alert('No se pudo verificar si el coordinador existe. Intenta de nuevo.');
-                return;
-            } */
-
-            const nuevoCoordinador = {
-                nombres: document.getElementById('nombres').value,
-                apellidos: document.getElementById('apellidos').value,
-                documento: document.getElementById('documento').value,
-                celular: document.getElementById('celular').value,
-                usuario: document.getElementById('usuario').value,
-                contrasena: contrasena,
-                email: document.getElementById('correo').value
-
-            };
 
             try {
                 const response = await fetch(`${API_BASE_URL}/coordinadores`, {
@@ -70,10 +53,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(nuevoCoordinador)
+                    body: JSON.stringify({
+                        nombres: nuevoCoord1.nombres,
+                        apellidos: nuevoCoord1.apellidos,
+                        celular: nuevoCoord1.celular,    
+                        documento: nuevoCoord1.documento,
+                        usuario: nuevoCoord1.usuario,
+                        contrasena: nuevoCoord1.contrasena,
+                        email: nuevoCoord1.email 
+                    })
                 });
 
-                alert(`Enviando datos al servidor... ${nuevoCoordinador.nombres} ${nuevoCoordinador.apellidos}`);
+                alert(`Enviando datos al servidor... ${nuevoCoord1.nombres} ${nuevoCoord1.apellidos}`);
 
                 const data = await response.json();
                 if (response.ok && data.success) {
@@ -93,12 +84,11 @@ document.addEventListener('DOMContentLoaded', () => {
         formLoginCoordinador.addEventListener('submit', async (event) => {
             event.preventDefault();
 
-            const API_BASE_URL = 'http://localhost:3000/api';
-            // Obtener los valores del usuario y contraseña de los inputs del formulario
-            const usuario = document.getElementById('loginUsuario').value;
-            const contrasena = document.getElementById('loginContrasena').value;
-
-            if (!usuario || !contrasena) {
+          
+            nuevoCoord.usuario = document.getElementById('loginUsuario').value;
+            nuevoCoord.contrasena = document.getElementById('loginContrasena').value;
+            
+            if (!nuevoCoord.usuario || !nuevoCoord.contrasena) {
                 alert('Por favor, ingresa tu usuario y contraseña.');
                 return;
             }
@@ -109,17 +99,23 @@ document.addEventListener('DOMContentLoaded', () => {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ usuario, contrasena })
+                    body: JSON.stringify({ usuario:nuevoCoord.usuario, contrasena: nuevoCoord.contrasena })
                 });
 
                 const data = await response.json();
 
+                nuevoCoord.nombres = data.user.nombres;
+                nuevoCoord.apellidos = data.user.apellidos;
+                nuevoCoord.email = data.user.email;
+               
+
                 if (data.success) {
-                    alert('Login exitoso: ' + data.message);
+                   nuevoCoord.mensajelogin("exito",5000);
                     console.log('Datos del usuario logueado:', data.user);
                     localStorage.setItem('currentUser', JSON.stringify(data.user));
-
-                    window.location.href = '../html/programacionRuta.html'; // Cambia esta URL
+                    setTimeout(() => {
+                    window.location.href = '../html/programacionRuta.html';
+                     }, 3000); // Cambia esta URL
                 } else {
                     alert('Error en el login: ' + data.message);
                 }

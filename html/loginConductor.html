@@ -13,6 +13,7 @@
 <body>
 
     <div class="contenedor" id="contenedor">
+         <div id="mensaje" class="mensaje"></div>
         <div class="contenedor-formulario registrarse">
             <form id="formRegistroConductor">
                 <h1>Crear Cuenta</h1>
@@ -22,13 +23,13 @@
                 <input type="tel" id="celular" placeholder="Celular" required>
                 <input type="email" id="correo" placeholder="Correo" required>
                 <input type="text" id="licencia" placeholder="Numero de licencia" required>
-                <input type="date" id="fechaVencimiento" placeholder="Fecha Vencimiento" required>
                 <input type="text" id="usuario" placeholder="Usuario" required>
                 <input type="password" id="contrasena" placeholder="Ingresa una contraseña" required>
                 <input type="password" id="repitaContrasena" placeholder="Repite la contraseña" required>
                 <button type="submit" id="btnRegistrarse">Registrarse</button>
                 <button type="button" id="btn-regresar" class="btn-regresar">Regresar</button>
             </form>
+    
         </div>
 
         <div class="contenedor-formulario iniciar-sesion">
@@ -61,8 +62,10 @@
                 </div>
                 
                 <button type="button" class="btn-regresar" id="btn_regresar1">Regresar</button>
+                    
             </form>
         </div>
+         
 
         <div class="contenedor-alternar">
             <div class="alternar">
@@ -80,7 +83,9 @@
                 </div>
             </div>
         </div>
+         
     </div>
+  
 
     <script type="module" src="/js/loginConductor.js"></script>
 </body>

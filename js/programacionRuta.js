@@ -1,3 +1,6 @@
+import { Coordinador } from "./coordinador.js";
+
+
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('current-year').textContent = new Date().getFullYear();
 
@@ -5,7 +8,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const addRowButton = document.querySelector('.add-row-button');
     const routeTableBody = document.querySelector('#routeTable tbody');
     const routeForm = document.getElementById('routeForm');
+    const coordinador2 = new Coordinador();
+    coordinador2.nombres = localStorage.getItem('nombres');
+    coordinador2.apellidos = localStorage.getItem('apellidos');
 
+    console.log(`Coordinador: ${coordinador2.nombres} ${coordinador2.apellidos}`);
+    
+  
     // Agrega una nueva fila
     addRowButton.addEventListener('click', async function () {
         const newRow = document.createElement('tr');
@@ -116,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
             conductores.forEach(conductor => {
                 const option = document.createElement('option');
                 option.value = conductor.id;
-                option.textContent = `${conductor.name} ${conductor.apellido || ''}`;
+                option.textContent = `${conductor.name} `;
                 option.setAttribute('data-apellido', conductor.apellido || '');
                 selectElement.appendChild(option);
             });
