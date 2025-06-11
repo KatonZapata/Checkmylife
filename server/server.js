@@ -527,9 +527,9 @@ app.post('/api/coordinadores', async (req, res) => {
         apellidos,
         documento,
         celular,
-        email,
         usuario,
-        contrasena
+        contrasena,
+        email
     } = req.body;
 
     try {

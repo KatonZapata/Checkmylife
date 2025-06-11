@@ -17,7 +17,7 @@
         <div class="header-right">
             <label for="user-status" class="user-info">
                 <i class="fas fa-user-circle"></i>
-                <span id="username"></span>
+                <span id="username">Nombre de Usuario</span>
             </label>
             <label for="status-indicator" class="status-info">
                 Estado: <span id="status-indicator" class="status-active">Activo</span>
@@ -39,39 +39,32 @@
 
     <main>
         <section class="action-buttons">
-            <button id="verRuta" class="main-button"><i class="fas fa-map-marker-alt"></i> Ver Rutas</button>
+            <button class="main-button"><i class="fas fa-map-marker-alt"></i> Ver Rutas</button>
             <button class="main-button"><i class="fas fa-car"></i> Vehículos</button>
             <button class="main-button"><i class="fas fa-chart-line"></i> Reportes</button>
             <button class="main-button"><i class="fas fa-cog"></i> Asignar vehiculos</button>
         </section>
 
         <section class="route-assignment">
-            <h2>Asignación de Rutas</h2>
+            <h2>Reporte</h2>
             <form id="routeForm">
                 <table id="routeTable">
                     <thead>
                         <tr>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>Placa</th>
-                            <th>Origen</th>
-                            <th>Destino</th>
-                            <th>Acción</th>
+                            <th>Reporte</th>
+                            <th>Novedades</th>
+                            <th>Alertas</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                                <td><select class="selectConductores" name="nombre[]" required></select></td>
-                                <td><input class="apellido" type="text" name="apellido[]" readonly required></td>
-                                <td><select class="selectVehiculo" name="placa[]" required></select></td>
-                                <td><input type="text" name="origen[]" required></td>
-                                <td><input type="text" name="destino[]" required></td>
-                                <td><button type="button" class="remove-row-button"><i class="fas fa-trash-alt"></i></button></td>
+                        <tr> 
+                          <td><input type="text" name="origen[]" required></td>
+                          <td><input type="text" name="destino[]" required></td>
+                          <td><input type="checkbox" name="seleccionado[]"></td>
                         </tr>
                     </tbody>
-                </table>
-                <button type="button" class="add-row-button"><i class="fas fa-plus"></i> Añadir Ruta</button>
-                <button type="submit" class="assign-button"><i class="fas fa-check-circle"></i> Asignar Rutas</button>
+                </table> 
             </form>
         </section>
     </main>

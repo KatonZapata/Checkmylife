@@ -1,4 +1,14 @@
+import { Coordinador } from "./coordinador.js";
+
 window.addEventListener("DOMContentLoaded", function () {
+  const usuariologeado = JSON.parse(localStorage.getItem('currentUser'));
+    // transformar el localStorage en un objeto Coordinador
+    const coordinador2 = new Coordinador();
+    coordinador2.nombres = usuariologeado.nombres;
+    coordinador2.apellidos = usuariologeado.apellidos;
+    coordinador2.usuario = usuariologeado.usuario;
+    // Mostrar el nombre del coordinador en la html
+    document.getElementById('username').textContent = `${coordinador2.nombres} ${coordinador2.apellidos}`;
   // -------- Barra de energía --------
   const totalDuration = 8 * 60 * 60; // 8 horas en segundos
   let remainingTime = totalDuration;

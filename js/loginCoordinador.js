@@ -56,8 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: JSON.stringify({
                         nombres: nuevoCoord1.nombres,
                         apellidos: nuevoCoord1.apellidos,
-                        celular: nuevoCoord1.celular,    
                         documento: nuevoCoord1.documento,
+                        celular: nuevoCoord1.celular,    
                         usuario: nuevoCoord1.usuario,
                         contrasena: nuevoCoord1.contrasena,
                         email: nuevoCoord1.email 
