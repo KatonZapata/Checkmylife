@@ -8,11 +8,19 @@ document.addEventListener('DOMContentLoaded', function () {
     const addRowButton = document.querySelector('.add-row-button');
     const routeTableBody = document.querySelector('#routeTable tbody');
     const routeForm = document.getElementById('routeForm');
+    const verRuta = document.getElementById('verRuta');
+    // variable para guardar el localStorage
+    const usuariologeado = JSON.parse(localStorage.getItem('currentUser'));
+    // transformar el localStorage en un objeto Coordinador
     const coordinador2 = new Coordinador();
-    coordinador2.nombres = localStorage.getItem('nombres');
-    coordinador2.apellidos = localStorage.getItem('apellidos');
+    coordinador2.nombres = usuariologeado.nombres;
+    coordinador2.apellidos = usuariologeado.apellidos;
+    coordinador2.usuario = usuariologeado.usuario;
+    // Mostrar el nombre del coordinador en la html
+    document.getElementById('username').textContent = `${coordinador2.nombres} ${coordinador2.apellidos}`;
+    
 
-    console.log(`Coordinador: ${coordinador2.nombres} ${coordinador2.apellidos}`);
+   
     
   
     // Agrega una nueva fila
@@ -169,3 +177,10 @@ document.addEventListener('DOMContentLoaded', function () {
         llenarSelectVehiculos(selectVehiculo);
     }
 });
+
+ verRuta.addEventListener('click', function () {
+    
+     window.location.href = '../html/verRutas.html';
+     
+
+ });
